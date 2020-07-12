@@ -16,3 +16,4 @@ yarn-error.log
 vuexy-shell-scripts
 .vscode/settings.json
 .vscode/
+.idea/

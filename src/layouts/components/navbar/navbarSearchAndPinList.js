@@ -7,6 +7,10 @@ export default {
       {title: "eCommerce Dashboard",        url: "/dashboard/ecommerce",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "金价走势图",                  url: "/dashboard/gold",                     icon: "HomeIcon",           is_bookmarked: false},
       {title: "材料走势图",                  url: "/dashboard/material",                 icon: "HomeIcon",           is_bookmarked: false},
+      // 任务
+      {title: "任务日历",          url: "/task/calendar",                icon: "HomeIcon",           is_bookmarked: false},
+      // 工具
+      {title: "竞拍计算器",        url: "/tools/auction",                icon: "HomeIcon",           is_bookmarked: false},
 
       // APPS
       {title: "Todo",                       url: "/apps/todo",                          icon: "CheckSquareIcon",    is_bookmarked: false},

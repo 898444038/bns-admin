@@ -6,6 +6,10 @@ export default {
 			eCommerce: '商城',
 			gold: '金价走势图',
 			material: '材料走势图',
+		Task: '任务',
+			TaskCalendar: '活动日历',
+		Tools: '工具',
+			Auction: '竞拍计算器',
 
 		Apps: '应用',
 			Todo: '待办事项',

@@ -32,7 +32,34 @@ export default [
       {url: '/dashboard/material', name: "material", slug: "dashboard-material", i18n: "material"},
     ]
   },
-  
+  {
+    header: "Task",
+    icon: "PackageIcon",
+    i18n: "Task",
+    items: [
+      {
+        url: "/task/calendar",
+        name: "TaskCalendar",
+        slug: "taskCalendar",
+        icon: "MailIcon",
+        i18n: "TaskCalendar",
+      },
+    ]
+  },
+  {
+    header: "Tools",
+    icon: "PackageIcon",
+    i18n: "Tools",
+    items: [
+      {
+        url: "/tools/auction",
+        name: "Auction",
+        slug: "auction",
+        icon: "MailIcon",
+        i18n: "Auction",
+      },
+    ]
+  },
   {
     header: "Apps",
     icon: "PackageIcon",
