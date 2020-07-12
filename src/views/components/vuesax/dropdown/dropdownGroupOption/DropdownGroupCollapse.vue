@@ -2,9 +2,7 @@
     File Name: DropdownGroupCollapse.vue
     Description: Option 2 - Collapse groups
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
+
 ========================================================================================== -->
 
 

@@ -2,9 +2,7 @@
 	File Name: BreadcrumbAlignment.vue
 	Description: Align breadcrumb to left, right or center
 	----------------------------------------------------------------------------------------
-	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-	Author: Pixinvent
-	Author URL: http://www.themeforest.net/user/pixinvent
+
 ========================================================================================== -->
 
 

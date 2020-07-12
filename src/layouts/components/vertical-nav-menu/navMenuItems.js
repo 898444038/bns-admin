@@ -13,20 +13,11 @@
                 NOTE: Submenu don't have any icon(you can add icon if u want to display)
           isDisabled  => disable sidebar item/group
   ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
+
 ==========================================================================================*/
 
 
 export default [
-  // {
-  //   url: "/apps/email",
-  //   name: "Email",
-  //   slug: "email",
-  //   icon: "MailIcon",
-  //   i18n: "Email",
-  // },
   {
     url: null,
     name: "Dashboard",
@@ -35,20 +26,13 @@ export default [
     icon: "HomeIcon",
     i18n: "Dashboard",
     submenu: [
-      {
-        url: '/dashboard/analytics',
-        name: "Analytics",
-        slug: "dashboard-analytics",
-        i18n: "Analytics",
-      },
-      {
-        url: '/dashboard/ecommerce',
-        name: "eCommerce",
-        slug: "dashboard-ecommerce",
-        i18n: "eCommerce",
-      },
+      {url: '/dashboard/analytics', name: "Analytics", slug: "dashboard-analytics", i18n: "Analytics"},
+      {url: '/dashboard/ecommerce', name: "eCommerce", slug: "dashboard-ecommerce", i18n: "eCommerce"},
+      {url: '/dashboard/gold', name: "gold", slug: "dashboard-gold", i18n: "gold"},
+      {url: '/dashboard/material', name: "material", slug: "dashboard-material", i18n: "material"},
     ]
   },
+  
   {
     header: "Apps",
     icon: "PackageIcon",

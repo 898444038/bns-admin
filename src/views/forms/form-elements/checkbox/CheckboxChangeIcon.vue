@@ -2,9 +2,7 @@
     File Name: CheckboxChangeIcon.vue
     Description: Change icon displayed in checkbox
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
+
 ========================================================================================== -->
 
 

@@ -1,10 +1,6 @@
 /*=========================================================================================
   File Name: themeConfig.js
   Description: Theme configuration
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 // MAIN COLORS - VUESAX THEME COLORS

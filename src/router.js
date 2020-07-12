@@ -10,10 +10,6 @@
                       breadcrumb => Add breadcrumb to specific page
                       pageTitle => Display title besides breadcrumb
                     }
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 
@@ -60,7 +56,22 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },
-
+                {
+                    path: '/dashboard/gold',
+                    name: 'dashboard-gold',
+                    component: () => import('./views/DashboardGold.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
+                    path: '/dashboard/material',
+                    name: 'dashboard-material',
+                    component: () => import('./views/DashboardMaterial.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
 
                 // =============================================================================
                 // Application Routes

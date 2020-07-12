@@ -4,6 +4,8 @@ export default {
 		Dashboard: '仪表盘',
 			Analytics: '数据可视化',
 			eCommerce: '商城',
+			gold: '金价走势图',
+			material: '材料走势图',
 
 		Apps: '应用',
 			Todo: '待办事项',
