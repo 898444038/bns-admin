@@ -5,7 +5,7 @@
 				<div class="vx-row mb-6">
                     <vs-tabs alignment="center">
                         <vs-tab label="组队竞拍" icon-pack="feather" icon="icon-home">
-                            <div class="vx-row mb-6">
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx centery">
                                         <vs-input-number :min="min" :max="max" :size="size" :step="step" label="人数:" v-model="count"/>
@@ -144,7 +144,7 @@
                             </div>
                         </vs-tab>
                         <vs-tab label="逃税计算" icon-pack="feather" icon="icon-box">
-                            <div class="vx-row mb-6">
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx centery">
                                         <vs-input-number :min="min2" :max="max2" :size="size" :step="step" label="数量:" v-model="count2"/>
@@ -180,19 +180,19 @@
                                 </div>
                             </div>
                             <div class="vx-row">
-                                <div v-if="!fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                                <div v-show="!fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                                     <statistics-card-line :statistic="taxEvasion.tsdj" statisticTitle="单个收益" hideChart class="mb-base" icon="CpuIcon" icon-right />
                                 </div>
 
-                                <div v-if="!fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                                <div v-show="!fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                                     <statistics-card-line :statistic="taxEvasion.tszj" statisticTitle="总收益" hideChart class="mb-base" icon="ServerIcon" icon-right color="success" />
                                 </div>
 
-                                <div v-if="fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                                <div v-show="fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                                     <statistics-card-line :statistic="taxEvasion.qftsdj" statisticTitle="去符单个收益" hideChart class="mb-base" icon="CpuIcon" icon-right />
                                 </div>
 
-                                <div v-if="fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
+                                <div v-show="fyfShow2" class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                                     <statistics-card-line :statistic="taxEvasion.qftszj" statisticTitle="去符总收益" hideChart class="mb-base" icon="ServerIcon" icon-right color="success" />
                                 </div>
 
@@ -207,7 +207,7 @@
                         </vs-tab>
 
                         <vs-tab label="团本收益计算" icon-pack="feather" icon="icon-box" style="display:none">
-                            <div class="vx-row mb-6">
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx centery">
                                         <vs-input-number :min="min2" :max="max2" :size="size" :step="step" label="数量:" v-model="count2"/>
