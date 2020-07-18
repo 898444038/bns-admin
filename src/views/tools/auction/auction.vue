@@ -13,9 +13,15 @@
                                 </div>
                                 <div class="vx-col">
                                     <div class="centerx">
+                                        <v-select  label="countryName" :options="countries" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+                                    </div>
+                                </div>
+                                <div class="vx-col">
+                                    <div class="centerx">
                                         <vs-input label-placeholder="材料单价(金)" v-model="price" class="is-label-placeholder" />
                                     </div>
                                 </div>
+                                
                                 <div class="vx-col">
                                     <div class="centerx">
                                         <vs-button class="mr-3 mb-2 centery-1" @click="auction">计算</vs-button>
@@ -195,91 +201,87 @@
 				</div>
                 <!-- <vs-divider position="center">Tips</vs-divider> -->
 			</vx-card>
-            <!-- <vx-card style='margin: 15px 0 0 0;'> -->
-                <div class="vx-row mb-6">
-                    <vs-col vs-type="flex" vs-justify="center" vs-w="4">
-                        <vx-card class="vx-card-1"
-                            title="单笔交易税"
-                            title-color="primary"
-                            subtitle="">
-                                <vs-table :data="dbDatas">
-                                    <template slot="thead">
-                                        <vs-th>起始金额</vs-th>
-                                        <vs-th>截止金额</vs-th>
-                                        <vs-th>扣税</vs-th>
-                                    </template>
-                                    <template slot-scope="{data}">
-                                        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                                            <vs-td :data="data[indextr].startPrice">
-                                            {{ data[indextr].startPrice }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].endPrice">
-                                            {{ data[indextr].endPrice }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].tax">
-                                            {{ data[indextr].tax }}
-                                            </vs-td>
-                                        </vs-tr>
-                                    </template>
-                                </vs-table>
-                        </vx-card>
-                    </vs-col>
-                    <vs-col vs-type="flex" vs-justify="center" vs-w="4">
-                        <vx-card class="vx-card-2"
-                            title="日累计交易税"
-                            title-color="primary"
-                            subtitle="">
-                                <vs-table :data="rljDatas">
-                                    <template slot="thead">
-                                        <vs-th>起始金额</vs-th>
-                                        <vs-th>截止金额</vs-th>
-                                        <vs-th>扣税</vs-th>
-                                    </template>
-                                    <template slot-scope="{data}">
-                                        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                                            <vs-td :data="data[indextr].startPrice">
-                                            {{ data[indextr].startPrice }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].endPrice">
-                                            {{ data[indextr].endPrice }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].tax">
-                                            {{ data[indextr].tax }}
-                                            </vs-td>
-                                        </vs-tr>
-                                    </template>
-                                </vs-table>
-                        </vx-card>
-                    </vs-col>
-                    <vs-col vs-type="flex" vs-justify="center" vs-w="4">
-                        <vx-card class="vx-card-3"
-                            title="拍卖行上架手续费"
-                            title-color="primary"
-                            subtitle="">
-                                <vs-table :data="sjDatas">
-                                    <template slot="thead">
-                                        <vs-th>起始数量</vs-th>
-                                        <vs-th>截止数量</vs-th>
-                                        <vs-th>扣税</vs-th>
-                                    </template>
-                                    <template slot-scope="{data}">
-                                        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                                            <vs-td :data="data[indextr].startCount">
-                                            {{ data[indextr].startCount }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].endCount">
-                                            {{ data[indextr].endCount }}
-                                            </vs-td>
-                                            <vs-td :data="data[indextr].tax">
-                                            {{ data[indextr].tax }}
-                                            </vs-td>
-                                        </vs-tr>
-                                    </template>
-                                </vs-table>
-                        </vx-card>
-                    </vs-col>
-                </div>
 			<!-- </vx-card> -->
+            <div class="vx-row" style="margin-top: 20px;">
+                <div class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-base">
+                    <vx-card>
+                        单笔交易税
+                        <br><br>
+                        <vs-table :data="dbDatas">
+                            <template slot="thead">
+                                <vs-th>起始金额</vs-th>
+                                <vs-th>截止金额</vs-th>
+                                <vs-th>扣税</vs-th>
+                            </template>
+                            <template slot-scope="{data}">
+                                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                                    <vs-td :data="data[indextr].startPrice">
+                                    {{ data[indextr].startPrice }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].endPrice">
+                                    {{ data[indextr].endPrice }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].tax">
+                                    {{ data[indextr].tax }}
+                                    </vs-td>
+                                </vs-tr>
+                            </template>
+                        </vs-table>
+                    </vx-card>
+                </div>
+                <div class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-base">
+                    <vx-card>
+                        日累计交易税
+                        <br><br>
+                        <vs-table :data="rljDatas">
+                            <template slot="thead">
+                                <vs-th>起始金额</vs-th>
+                                <vs-th>截止金额</vs-th>
+                                <vs-th>扣税</vs-th>
+                            </template>
+                            <template slot-scope="{data}">
+                                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                                    <vs-td :data="data[indextr].startPrice">
+                                    {{ data[indextr].startPrice }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].endPrice">
+                                    {{ data[indextr].endPrice }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].tax">
+                                    {{ data[indextr].tax }}
+                                    </vs-td>
+                                </vs-tr>
+                            </template>
+                        </vs-table>
+                    </vx-card>
+                </div>
+                <div class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-base">
+                    <vx-card>
+                        拍卖行上架手续费
+                        <br><br>
+                        <vs-table :data="sjDatas">
+                            <template slot="thead">
+                                <vs-th>起始数量</vs-th>
+                                <vs-th>截止数量</vs-th>
+                                <vs-th>扣税</vs-th>
+                            </template>
+                            <template slot-scope="{data}">
+                                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                                    <vs-td :data="data[indextr].startCount">
+                                    {{ data[indextr].startCount }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].endCount">
+                                    {{ data[indextr].endCount }}
+                                    </vs-td>
+                                    <vs-td :data="data[indextr].tax">
+                                    {{ data[indextr].tax }}
+                                    </vs-td>
+                                </vs-tr>
+                            </template>
+                        </vs-table>
+                    </vx-card>
+                </div>
+            </div>
 		</div>
     </div>
 
@@ -295,8 +297,10 @@
 
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+import vSelect from 'vue-select'
 export default {
     components: {
+        'v-select': vSelect,
         StatisticsCardLine
     },
   data(){
@@ -361,7 +365,21 @@ export default {
             mine: '0',
             other: '0',
         },
-      }
+      },
+      countries: [
+        {
+          countryCode: "DE",
+          countryName: "Germany",
+        },
+        {
+          countryCode: "AUS",
+          countryName: "Australia",
+        },
+        {
+          countryCode: "CA",
+          countryName: "Canada",
+        },
+      ]
     }
   },
   methods:{

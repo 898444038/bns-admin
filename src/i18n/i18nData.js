@@ -6,6 +6,8 @@ export default {
 			eCommerce: '商城',
 			gold: '金价走势图',
 			material: '材料走势图',
+		Config: '配置',
+			ConfigMaterial: '材料配置',
 		Task: '任务',
 			TaskCalendar: '活动日历',
 		Tools: '工具',

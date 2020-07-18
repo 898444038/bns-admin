@@ -7,6 +7,8 @@ export default {
       {title: "eCommerce Dashboard",        url: "/dashboard/ecommerce",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "金价走势图",                  url: "/dashboard/gold",                     icon: "HomeIcon",           is_bookmarked: false},
       {title: "材料走势图",                  url: "/dashboard/material",                 icon: "HomeIcon",           is_bookmarked: false},
+      // 配置
+      {title: "材料配置",          url: "/config/material",                icon: "HomeIcon",           is_bookmarked: false},
       // 任务
       {title: "任务日历",          url: "/task/calendar",                icon: "HomeIcon",           is_bookmarked: false},
       // 工具
