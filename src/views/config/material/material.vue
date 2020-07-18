@@ -176,6 +176,11 @@ export default {
     },
     toggleDataSidebar(val=false) {
       this.addNewDataSidebar = val
+      if(!moduleDataList.isRegistered) {
+        this.$store.registerModule('material', moduleDataList)
+        moduleDataList.isRegistered = true
+      }
+      this.$store.dispatch("material/fetchItems")
     }
   },
   created() {

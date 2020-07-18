@@ -133,7 +133,7 @@ export default {
       }
     },
     isFormValid() {
-      return !this.errors.any() && this.dataName && (this.dataPrice > 0)
+      return !this.errors.any() && this.dataName && (this.dataPrice >= 0)
     }
   },
   methods: {
@@ -168,6 +168,7 @@ export default {
 
             this.$emit('closeSidebar')
             this.initValues()
+            //this.$router.push("/config/material").catch(() => {})
           }
       })
     },
