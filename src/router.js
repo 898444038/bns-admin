@@ -73,6 +73,18 @@ const router = new Router({
                     }
                 },
                 // =============================================================================
+                // 角色 路由
+                // =============================================================================
+                {
+                    path: '/player/star',
+                    name: 'playerStar',
+                    component: () => import('./views/player/star/star.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
+                // =============================================================================
                 // 配置项 路由
                 // =============================================================================
                 {
@@ -103,6 +115,15 @@ const router = new Router({
                     path: '/tools/auction',
                     name: 'auction',
                     component: () => import('./views/tools/auction/auction.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
+                {
+                    path: '/tools/level',
+                    name: 'level',
+                    component: () => import('./views/tools/level/level.vue'),
                     meta: {
                         rule: 'editor',
                         no_scroll: true,

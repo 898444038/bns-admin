@@ -33,6 +33,14 @@ export default [
     ]
   },
   {
+    header: "Player",
+    icon: "PackageIcon",
+    i18n: "Player",
+    items: [
+      {url: "/player/star", name: "PlayerStar", slug: "playerStar", icon: "MailIcon",i18n: "PlayerStar"},
+    ]
+  },
+  {
     header: "Config",
     icon: "PackageIcon",
     i18n: "Config",
@@ -54,6 +62,7 @@ export default [
     i18n: "Tools",
     items: [
       {url: "/tools/auction", name: "Auction", slug: "auction", icon: "MailIcon", i18n: "Auction"},
+      {url: "/tools/level", name: "Level", slug: "level", icon: "MailIcon", i18n: "Level"},
     ]
   },
   {
