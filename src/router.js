@@ -38,7 +38,8 @@ const router = new Router({
                 // =============================================================================
                 {
                     path: '/',
-                    redirect: '/dashboard/analytics'
+                    // redirect: '/dashboard/analytics'
+                    redirect: '/tools/auction'
                 },
                 {
                     path: '/dashboard/analytics',
