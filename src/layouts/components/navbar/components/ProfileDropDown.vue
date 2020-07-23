@@ -12,7 +12,7 @@
         <img v-if="activeUserInfo.photoURL" key="onlineImg" :src="activeUserInfo.photoURL" alt="user-img" width="40" height="40" class="rounded-full shadow-md cursor-pointer block" />
       </div>
 
-      <vs-dropdown-menu class="vx-navbar-dropdown">
+      <!-- <vs-dropdown-menu class="vx-navbar-dropdown">
         <ul style="min-width: 9rem">
 
           <li
@@ -59,7 +59,7 @@
             <span class="ml-2">Logout</span>
           </li>
         </ul>
-      </vs-dropdown-menu>
+      </vs-dropdown-menu> -->
     </vs-dropdown>
   </div>
 </template>

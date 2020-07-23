@@ -75,7 +75,7 @@ export default {
   computed: {
     // CART DROPDOWN
     cartItems() {
-        return this.$store.state.eCommerce.cartItems.slice().reverse();
+        return [];//this.$store.state.eCommerce.cartItems.slice().reverse();
     },
   },
   methods: {

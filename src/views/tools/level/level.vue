@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="vx-col">
                                     <div class="centerx">
-                                        <vs-input label-placeholder="每日获得经验(万),例：100,200,500" v-model="dayExp" class="is-label-placeholder" />
+                                        <vs-input label-placeholder="每日获得经验(万),例：200,500" v-model="dayExp" class="is-label-placeholder" />
                                     </div>
                                 </div>
                                 <div class="vx-col">
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="vx-col">
                                     <div class="centerx">
-                                        <vs-input label-placeholder="每日获得经验(万),例：100,200,500" v-model="dayExp2" class="is-label-placeholder" />
+                                        <vs-input label-placeholder="每日获得经验(万),例：20,50" v-model="dayExp2" class="is-label-placeholder" />
                                     </div>
                                 </div>
                                 <div class="vx-col">
@@ -106,11 +106,11 @@ export default {
   data(){
     return {
         stars:[20,25],
-        chivalrous:[100,120],
+        chivalrous:[100,110],
         currExp:'0',
-        dayExp:'100,200,500,1000',
+        dayExp:'200,500',
         currExp2:'0',
-        dayExp2:'10,20,50',
+        dayExp2:'20,50',
         bar: {
             legend: {},
             tooltip: {},
@@ -163,12 +163,12 @@ export default {
         resetForm(){
             this.stars = [20,25];
             this.currExp = '0';
-            this.dayExp = '200,500,1000';
+            this.dayExp = '200,500';
         },
         resetForm2(){
             this.chivalrous = [100,110];
             this.currExp2 = '0';
-            this.dayExp2 = '10,20,50';
+            this.dayExp2 = '20,50';
         },
         resetBar(){
             this.bar = {
