@@ -28,6 +28,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <vs-divider> 经验图 </vs-divider>
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
+                                <e-charts autoresize :options="bar_exp" ref="bar_exp" theme="ovilia-green" auto-resize />
+                            </div>
                             <vs-divider> 对比图 </vs-divider>
                             <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <e-charts autoresize :options="bar" ref="bar" theme="ovilia-green" auto-resize />
@@ -41,7 +45,7 @@
                             <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx centery">
-                                        <vs-slider icon="star" ticks max='150' v-model="chivalrous"/>
+                                        <vs-slider icon="star" ticks max='180' v-model="chivalrous"/>
                                     </div>
                                 </div>
                                 <div class="vx-col">
@@ -60,6 +64,10 @@
                                         <vs-button color="warning" type="border" class="mb-2" @click="resetForm2">重置</vs-button>
                                     </div>
                                 </div>
+                            </div>
+                            <vs-divider> 经验图 </vs-divider>
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
+                                <e-charts autoresize :options="bar2_exp" ref="bar2_exp" theme="ovilia-green" auto-resize />
                             </div>
                             <vs-divider> 对比图 </vs-divider>
                             <div class="vx-row mb-6" style="margin-top: 20px;">
@@ -125,6 +133,14 @@ export default {
                 { name: "",type: 'bar' }, 
             ]
         },
+        bar_exp:{
+            legend: {},
+            tooltip: {},
+            dataset: { source: [ ] },
+            xAxis: { type: 'category' },
+            yAxis: {},
+            series: [ { name: "",type: 'bar' },  ]
+        },
         line: {
             visualMap: [{ show: false, type: 'continuous', seriesIndex: 0, min: 0, max: 400 }],
             tooltip: { trigger: 'axis' },
@@ -133,6 +149,14 @@ export default {
             series: [{ name: "", type: 'line', showSymbol: false, data: [0] }]
         },
         bar2: {
+            legend: {},
+            tooltip: {},
+            dataset: { source: [ ] },
+            xAxis: { type: 'category' },
+            yAxis: {},
+            series: [ { name: "",type: 'bar' },  ]
+        },
+        bar2_exp:{
             legend: {},
             tooltip: {},
             dataset: { source: [ ] },
@@ -231,8 +255,13 @@ export default {
                         });
                     }
                     _this.bar.series = seriesBarList;
-
                     _this.bar.dataset.source = sourceList;
+
+                    var sourceExpList = [];
+                    for(var m=0;m<result.rank.length;m++){
+                        sourceExpList.push([result.rank[m].star+"级",result.rank[m].exp]);
+                    }
+                    _this.bar_exp.dataset.source = sourceExpList;
                 }
             }).catch((error) => { 
                 console.log(error) 
@@ -278,9 +307,15 @@ export default {
                             name: result.xAxis[j],type: 'bar'
                         });
                     }
-                    _this.bar2.series = seriesBarList;
 
+                    _this.bar2.series = seriesBarList;
                     _this.bar2.dataset.source = sourceList;
+
+                    var sourceExpList = [];
+                    for(var m=0;m<result.rank.length;m++){
+                        sourceExpList.push([result.rank[m].chivalrous+"级",result.rank[m].exp]);
+                    }
+                    _this.bar2_exp.dataset.source = sourceExpList;
                 }
             }).catch((error) => { 
                 console.log(error) 

@@ -8,7 +8,9 @@
 
 <template>
     <vx-card title="Bar Chart" class="mb-base" code-toggler>
-
+        <div class="mt-5">
+            <e-charts autoresize :options="bar0" ref="bar0" theme="ovilia-green" auto-resize />
+        </div>
         <div class="mt-5">
             <e-charts autoresize :options="bar" ref="bar" theme="ovilia-green" auto-resize />
         </div>
@@ -83,6 +85,29 @@ ECharts.registerTheme('ovilia-green', theme)
 export default {
     data() {
         return {
+            bar0: {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    // Provide data.
+                    source: [
+
+                        ['Matcha Latte', 100],
+                        ['Milk Tea', 150],
+                        ['Cheese Cocoa', 300],
+                        ['Walnut Brownie', 400]
+                    ]
+                },
+                // Declare X axis, which is a category axis, mapping
+                // to the first column by default.
+                xAxis: { type: 'category' },
+                // Declare Y axis, which is a value axis.
+                yAxis: {},
+                // Declare several series, each of them mapped to a
+                // column of the dataset by default.
+                series: [{ type: 'bar' }]
+
+            },
             bar: {
                 legend: {},
                 tooltip: {},
