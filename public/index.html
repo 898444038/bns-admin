@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" type="text/css" href="<%= BASE_URL %>loader.css">
+    <link rel="stylesheet" type="text/css" href="/live2d/waifu.css"/>
     <title>BNS</title>
   </head>
   <body>
@@ -26,5 +27,31 @@
 
     </div>
     <!-- built files will be auto injected -->
+
+    <div class="waifu" style='z-index:10000'>
+      <div class="waifu-tips"></div>
+      <canvas id="live2d" class="live2d"></canvas>
+      <div class="waifu-tool">
+          <span class="fui-home"></span>
+          <span class="fui-chat"></span>
+          <span class="fui-eye"></span>
+          <span class="fui-user"></span>
+          <span class="fui-photo"></span>
+          <span class="fui-info-circle"></span>
+          <span class="fui-cross"></span>
+      </div>
+    </div>
+  
+    <script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/jquery-ui-1.11.0.css">
+    <script src="/live2d/waifu-tips.js"></script>
+    <script src="/live2d/live2d.js"></script>
+    
+    <script type="text/javascript">
+      live2d_settings['modelId'] = 1;
+      live2d_settings['modelTexturesId'] = 87;
+      live2d_settings['waifuDraggable'] = 'unlimited';
+      initModel("/live2d/waifu-tips.json")
+    </script>
   </body>
 </html>

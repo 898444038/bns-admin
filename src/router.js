@@ -19,7 +19,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'hash',//hash\history
+    mode: 'history',//hash\history
     base: process.env.BASE_URL,
     scrollBehavior () {
         return { x: 0, y: 0 }
@@ -104,6 +104,15 @@ const router = new Router({
                     path: '/task/calendar',
                     name: 'taskCalendar',
                     component: () => import('./views/apps/chat/Chat.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
+                {
+                    path: '/task/week',
+                    name: 'taskWeek',
+                    component: () => import('./views/task/week.vue'),
                     meta: {
                         rule: 'editor',
                         no_scroll: true,

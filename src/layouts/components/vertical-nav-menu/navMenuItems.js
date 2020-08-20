@@ -48,14 +48,15 @@ export default [
       {url: "/config/material", name: "ConfigMaterial", slug: "configMaterial", icon: "MailIcon",i18n: "ConfigMaterial"},
     ]
   },
-  // {
-  //   header: "Task",
-  //   icon: "PackageIcon",
-  //   i18n: "Task",
-  //   items: [
-  //     {url: "/task/calendar", name: "TaskCalendar", slug: "taskCalendar", icon: "MailIcon",i18n: "TaskCalendar"},
-  //   ]
-  // },
+  {
+    header: "Task",
+    icon: "PackageIcon",
+    i18n: "Task",
+    items: [
+      // {url: "/task/calendar", name: "TaskCalendar", slug: "taskCalendar", icon: "MailIcon",i18n: "TaskCalendar"},
+      {url: "/task/week", name: "TaskWeek", slug: "taskWeek", icon: "MailIcon",i18n: "TaskWeek"},
+    ]
+  },
   {
     header: "Tools",
     icon: "PackageIcon",

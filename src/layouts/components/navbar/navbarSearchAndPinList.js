@@ -13,6 +13,7 @@ export default {
       {title: "材料配置",          url: "/config/material",                icon: "HomeIcon",           is_bookmarked: false},
       // 任务
       {title: "任务日历",          url: "/task/calendar",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "每日挑战",          url: "/task/week",                icon: "HomeIcon",           is_bookmarked: false},
       // 工具
       {title: "竞拍计算器",        url: "/tools/auction",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "级别计算器",        url: "/tools/level",                icon: "HomeIcon",           is_bookmarked: false},

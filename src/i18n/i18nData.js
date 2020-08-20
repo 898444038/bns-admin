@@ -12,6 +12,7 @@ export default {
 			ConfigMaterial: '材料配置',
 		Task: '任务',
 			TaskCalendar: '活动日历',
+			TaskWeek: '每日挑战',
 		Tools: '工具',
 			Auction: '竞拍计算器',
 			Level: '级别计算器',
