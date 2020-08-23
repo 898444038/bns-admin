@@ -112,7 +112,7 @@ const router = new Router({
                 {
                     path: '/task/week',
                     name: 'taskWeek',
-                    component: () => import('./views/task/week.vue'),
+                    component: () => import('./views/task/week/week.vue'),
                     meta: {
                         rule: 'editor',
                         no_scroll: true,
@@ -134,6 +134,15 @@ const router = new Router({
                     path: '/tools/level',
                     name: 'level',
                     component: () => import('./views/tools/level/level.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
+                {
+                    path: '/tools/transcript24',
+                    name: 'transcript24',
+                    component: () => import('./views/tools/transcript/transcript24.vue'),
                     meta: {
                         rule: 'editor',
                         no_scroll: true,

@@ -12,10 +12,11 @@ export default {
 			ConfigMaterial: '材料配置',
 		Task: '任务',
 			TaskCalendar: '活动日历',
-			TaskWeek: '每日挑战',
+			TaskWeek: '挑战任务',
 		Tools: '工具',
 			Auction: '竞拍计算器',
 			Level: '级别计算器',
+			transcript24: '24人副本',
 
 		Apps: '应用',
 			Todo: '待办事项',

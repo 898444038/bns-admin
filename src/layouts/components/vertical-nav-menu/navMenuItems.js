@@ -64,6 +64,7 @@ export default [
     items: [
       {url: "/tools/auction", name: "Auction", slug: "auction", icon: "MailIcon", i18n: "Auction"},
       {url: "/tools/level", name: "Level", slug: "level", icon: "MailIcon", i18n: "Level"},
+      {url: "/tools/transcript24", name: "transcript24", slug: "transcript24", icon: "MailIcon", i18n: "transcript24"},
     ]
   },
   // {

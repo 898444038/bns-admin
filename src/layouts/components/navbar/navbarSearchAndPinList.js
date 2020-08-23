@@ -17,6 +17,7 @@ export default {
       // 工具
       {title: "竞拍计算器",        url: "/tools/auction",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "级别计算器",        url: "/tools/level",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "24人副本",          url: "/tools/transcript24",                icon: "HomeIcon",           is_bookmarked: false},
 
       // APPS
       {title: "Todo",                       url: "/apps/todo",                          icon: "CheckSquareIcon",    is_bookmarked: false},
