@@ -301,12 +301,19 @@ export default {
         strToTime(val1){
             var timestamp1 = val1;
             if((val1+"").indexOf(":") != -1){
-                timestamp1 = new Date("2020-08-23 "+val1).getTime();
+                timestamp1 = new Date(this.getDate()+" "+val1).getTime();
             }
             return timestamp1;
         },
         getNowTime(){
             return new Date().getTime();
+        },
+        getDate(){
+            let datetime = new Date();
+            let year = datetime.getFullYear();
+            let month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+            let date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+            return year+"-"+month+"-"+date;
         }
     },
     watch: {
