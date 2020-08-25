@@ -193,6 +193,29 @@ export default {
             },
         }
     },
+    mounted(){
+        var _this = this;
+        var params = {codes:'transcript24_hs_1,transcript24_hs_2,transcript24_hs_3'};
+        _this.$https.get("/config/selectMap",params).then((response) => { 
+            if(response.code == 1){
+                _this.refresh1 = response.data.transcript24_hs_1;
+                _this.refresh2 = response.data.transcript24_hs_2;
+                _this.refresh3 = response.data.transcript24_hs_3;
+            }else{
+                _this.$vs.dialog({
+                    color: 'danger',
+                    title: '警告',
+                    text: response.msg,
+                    accept: function(){
+
+                    }
+                })
+                _this.resetForm2();
+            }
+        }).catch((error) => { 
+            console.log(error) 
+        })
+    },
     methods:{
         cutTime(type){
             let nowTime = new Date().getTime();
