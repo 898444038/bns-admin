@@ -163,7 +163,7 @@
     </div>
   </div>
   <div class="vx-row" style="margin-top: 30px;">
-      <vs-button @click="updateAll" color="primary" icon-pack="feather" icon="icon-edit-2" style="display:none;margin: 0px 13px;width: 100%;">保存更改</vs-button>
+      <vs-button @click="updateAll" color="primary" icon-pack="feather" icon="icon-edit-2" :class="{ 'submit': isSubmit }" style="display:none;margin: 0px 13px;width: 100%;">保存更改</vs-button>
   </div>
 </div>
 </template>
@@ -196,6 +196,7 @@ newIndex：移动后的序号
 export default {
   data() {
     return {
+      isSubmit: false,
       isDragging: false,
       delayedDragging: false,
 
@@ -248,6 +249,30 @@ export default {
   mounted(){
     this.getTaskList();
     this.getDataList();
+    var _this = this;
+    var params = {codes:'week_submit'};
+    _this.$https.get("/config/selectMap",params).then((response) => { 
+      if(response.code == 1){
+          var flag = response.data.week_submit;
+          if(flag == '1'){
+            _this.isSubmit = true;
+          }else{
+            _this.isSubmit = false;
+          }
+      }else{
+          _this.$vs.dialog({
+              color: 'danger',
+              title: '警告',
+              text: response.msg,
+              accept: function(){
+
+              }
+          })
+          _this.resetForm2();
+      }
+    }).catch((error) => { 
+      console.log(error) 
+    })
   },
   methods:{
     remove(array,item) {
@@ -477,5 +502,8 @@ export default {
 }
 .vs-divider {
   margin-bottom: 0!important;
+}
+.submit{
+  display:none;
 }
 </style>
