@@ -2,11 +2,11 @@
 <div>
   <div class="vx-row">
     <div class="vx-col w-1/1 md:w-1/1 xl:w-1/1">
-        <vs-button @click="addNewData" color="primary" type="border" icon-pack="feather" icon="icon-edit-2" style="display:none;">添加挑战任务</vs-button>
+        <vs-button v-show='submit' @click="addNewData" color="primary" type="border" icon-pack="feather" icon="icon-edit-2">添加挑战任务</vs-button>
 
         <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" @updateData="getTaskList" :data="sidebarData" />
 
-        <draggable :move="onMove" @start="isDragging=true" @end="isDragging=false" :list="taskList" :group="{name:'tags',  pull:'clone', put:false }" class="p-2 cursor-move">
+        <draggable v-show='submit' :move="onMove" @start="isDragging=true" @end="isDragging=false" :list="taskList" :group="{name:'tags',  pull:'clone', put:false }" class="p-2 cursor-move">
           <vs-chip v-for="(item, index) in taskList" :key="index" color="primary"> {{ item.name }} </vs-chip>
         </draggable>
     </div>
@@ -14,7 +14,7 @@
   </div>
   <div class="vx-row">
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-        <vx-card title="周一" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+        <vx-card title="周一" collapse-action refresh-content-action @refresh="closeCardAnimation1">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data1_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data1_1,item)" v-for="(item, index) in data1_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -34,7 +34,7 @@
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-        <vx-card title="周二" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+        <vx-card title="周二" collapse-action refresh-content-action @refresh="closeCardAnimation2">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data2_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data2_1,item)" v-for="(item, index) in data2_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -54,7 +54,7 @@
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-        <vx-card title="周三" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+        <vx-card title="周三" collapse-action refresh-content-action @refresh="closeCardAnimation3">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data3_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data3_1,item)" v-for="(item, index) in data3_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -74,7 +74,7 @@
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-        <vx-card title="周四" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+        <vx-card title="周四" collapse-action refresh-content-action @refresh="closeCardAnimation4">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data4_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data4_1,item)" v-for="(item, index) in data4_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -97,7 +97,7 @@
   </div>
   <div class="vx-row" style="margin-top: 15px;">
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-      <vx-card title="周五" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+      <vx-card title="周五" collapse-action refresh-content-action @refresh="closeCardAnimation5">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data5_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data5_1,item)" v-for="(item, index) in data5_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -117,7 +117,7 @@
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-      <vx-card title="周六" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+      <vx-card title="周六" collapse-action refresh-content-action @refresh="closeCardAnimation6">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data6_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data6_1,item)" v-for="(item, index) in data6_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -137,7 +137,7 @@
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-      <vx-card title="周日" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+      <vx-card title="周日" collapse-action refresh-content-action @refresh="closeCardAnimation7">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data7_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data7_1,item)" v-for="(item, index) in data7_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -157,13 +157,13 @@
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
-      <vx-card title="每周挑战" collapse-action refresh-content-action @refresh="closeCardAnimationDemo">
+      <vx-card title="每周挑战" collapse-action refresh-content-action @refresh="closeCardAnimation0">
           
       </vx-card>
     </div>
   </div>
   <div class="vx-row" style="margin-top: 30px;">
-      <vs-button @click="updateAll" color="primary" icon-pack="feather" icon="icon-edit-2" :class="{ 'submit': isSubmit }" style="display:none;margin: 0px 13px;width: 100%;">保存更改</vs-button>
+      <vs-button v-show='submit' @click="updateAll" color="primary" icon-pack="feather" icon="icon-edit-2" style="margin: 0px 13px;width: 100%;">保存更改</vs-button>
   </div>
 </div>
 </template>
@@ -196,10 +196,11 @@ newIndex：移动后的序号
 export default {
   data() {
     return {
-      isSubmit: false,
+      submit: false,
       isDragging: false,
       delayedDragging: false,
 
+      resultData:'',
       taskList: [],
 
       data1_1: [],
@@ -255,10 +256,11 @@ export default {
       if(response.code == 1){
           var flag = response.data.week_submit;
           if(flag == '1'){
-            _this.isSubmit = true;
+            _this.submit = true;
           }else{
-            _this.isSubmit = false;
+            _this.submit = false;
           }
+          console.log("submit",_this.submit)
       }else{
           _this.$vs.dialog({
               color: 'danger',
@@ -291,9 +293,6 @@ export default {
     onMove({ relatedContext, draggedContext }) {
       const relatedElement = relatedContext.list;
       const draggedElement = draggedContext.element;
-      console.log("relatedContext",relatedContext.index)
-      console.log("relatedElement",relatedElement);
-      console.log("draggedElement",draggedElement);
       let flag = true;
       for(let i=0;i<relatedElement.length;i++){
         if(relatedElement[i].id == draggedElement.id){
@@ -331,7 +330,9 @@ export default {
       var params = {};
       _this.$https.get("/task/table/selectGroupList",params).then((response) => { 
         if(response.code == 1){
-            var result = response.data;
+            let result = response.data;
+            let obj = JSON.parse(JSON.stringify(response.data));
+            _this.resultData = obj;
 
             _this.data1_1 = result.data1_1;
             _this.data1_2 = result.data1_2;
@@ -396,8 +397,71 @@ export default {
       this.$store.dispatch("taskWeek/fetchItems")
     },
     // 刷新card
-    closeCardAnimationDemo(card) {
-      card.removeRefreshAnimation(3000);
+    closeCardAnimation1(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data1_1 = JSON.parse(JSON.stringify(result.data1_1));
+      _this.data1_2 = JSON.parse(JSON.stringify(result.data1_2));
+      _this.data1_3 = JSON.parse(JSON.stringify(result.data1_3));
+      _this.data1_4 = JSON.parse(JSON.stringify(result.data1_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation2(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data2_1 = JSON.parse(JSON.stringify(result.data2_1));
+      _this.data2_2 = JSON.parse(JSON.stringify(result.data2_2));
+      _this.data2_3 = JSON.parse(JSON.stringify(result.data2_3));
+      _this.data2_4 = JSON.parse(JSON.stringify(result.data2_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation3(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data3_1 = JSON.parse(JSON.stringify(result.data3_1));
+      _this.data3_2 = JSON.parse(JSON.stringify(result.data3_2));
+      _this.data3_3 = JSON.parse(JSON.stringify(result.data3_3));
+      _this.data3_4 = JSON.parse(JSON.stringify(result.data3_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation4(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data4_1 = JSON.parse(JSON.stringify(result.data4_1));
+      _this.data4_2 = JSON.parse(JSON.stringify(result.data4_2));
+      _this.data4_3 = JSON.parse(JSON.stringify(result.data4_3));
+      _this.data4_4 = JSON.parse(JSON.stringify(result.data4_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation5(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data5_1 = JSON.parse(JSON.stringify(result.data5_1));
+      _this.data5_2 = JSON.parse(JSON.stringify(result.data5_2));
+      _this.data5_3 = JSON.parse(JSON.stringify(result.data5_3));
+      _this.data5_4 = JSON.parse(JSON.stringify(result.data5_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation6(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data6_1 = JSON.parse(JSON.stringify(result.data6_1));
+      _this.data6_2 = JSON.parse(JSON.stringify(result.data6_2));
+      _this.data6_3 = JSON.parse(JSON.stringify(result.data6_3));
+      _this.data6_4 = JSON.parse(JSON.stringify(result.data6_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation7(card) {
+      let _this = this;
+      let result = this.resultData;
+      _this.data7_1 = JSON.parse(JSON.stringify(result.data7_1));
+      _this.data7_2 = JSON.parse(JSON.stringify(result.data7_2));
+      _this.data7_3 = JSON.parse(JSON.stringify(result.data7_3));
+      _this.data7_4 = JSON.parse(JSON.stringify(result.data7_4));
+      card.removeRefreshAnimation(500);
+    },
+    closeCardAnimation0(card) {
+      card.removeRefreshAnimation(500);
     },
     insert(week,type,list){
       var _this = this;
@@ -502,8 +566,5 @@ export default {
 }
 .vs-divider {
   margin-bottom: 0!important;
-}
-.submit{
-  display:none;
 }
 </style>

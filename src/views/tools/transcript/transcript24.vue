@@ -14,7 +14,7 @@
                             </div>
                             <div class="vx-row">
                                 <div class="vx-col w-full lg:w-1/3 sm:w-1/2 mb-base">
-                                    <vx-card class="p-2" :class="[activeClass1]">
+                                    <vx-card class="p-2" :class="[activeClass1]" refresh-content-action @refresh="closeCardAnimation1">
                                         <div class="text-center">
                                             <h4>守卫-暴戾鱼王</h4>
                                             <p class="text-grey">14亿4000万</p>
@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class="vx-col w-full lg:w-1/3 sm:w-1/2 mb-base">
-                                    <vx-card class="p-2" :class="[activeClass2]">
+                                    <vx-card class="p-2" :class="[activeClass2]" refresh-content-action @refresh="closeCardAnimation2">
                                         <div class="text-center">
                                             <h4>大厨-楼杏花</h4>
                                             <p class="text-grey">15亿6000万</p>
@@ -90,7 +90,7 @@
                                 </div>
 
                                 <div class="vx-col w-full lg:w-1/3 sm:w-1/2 mb-base">
-                                    <vx-card class="p-2" :class="[activeClass3]">
+                                    <vx-card class="p-2" :class="[activeClass3]" refresh-content-action @refresh="closeCardAnimation3">
                                         <div class="text-center">
                                             <h4>内务班长-酒保</h4>
                                             <p class="text-grey">18亿5000万</p>
@@ -191,6 +191,10 @@ export default {
               enableSeconds: true,
               noCalendar: true
             },
+
+            transcript24_hs_1:'',
+            transcript24_hs_2:'',
+            transcript24_hs_3:'',
         }
     },
     mounted(){
@@ -198,6 +202,10 @@ export default {
         var params = {codes:'transcript24_hs_1,transcript24_hs_2,transcript24_hs_3'};
         _this.$https.get("/config/selectMap",params).then((response) => { 
             if(response.code == 1){
+                _this.transcript24_hs_1 = response.data.transcript24_hs_1;
+                _this.transcript24_hs_2 = response.data.transcript24_hs_2;
+                _this.transcript24_hs_3 = response.data.transcript24_hs_3;
+
                 _this.refresh1 = response.data.transcript24_hs_1;
                 _this.refresh2 = response.data.transcript24_hs_2;
                 _this.refresh3 = response.data.transcript24_hs_3;
@@ -217,6 +225,33 @@ export default {
         })
     },
     methods:{
+        closeCardAnimation1(card){
+            let nowTime = this.getNowTime();
+            this.value1 = 0;
+            this.time1 = nowTime;
+            this.times1 = nowTime;
+            this.refresh1 = this.transcript24_hs_1;
+            this.activeClass1 = '';
+            card.removeRefreshAnimation(500);
+        },
+        closeCardAnimation2(card){
+            let nowTime = this.getNowTime();
+            this.value2 = 0;
+            this.time2 = nowTime;
+            this.times2 = nowTime;
+            this.refresh2 = this.transcript24_hs_2;
+            this.activeClass2 = '';
+            card.removeRefreshAnimation(500);
+        },
+        closeCardAnimation3(card){
+            let nowTime = this.getNowTime();
+            this.value3 = 0;
+            this.time3 = nowTime;
+            this.times3 = nowTime;
+            this.refresh3 = this.transcript24_hs_3;
+            this.activeClass3 = '';
+            card.removeRefreshAnimation(500);
+        },
         cutTime(type){
             let nowTime = new Date().getTime();
             if(type == 1){
