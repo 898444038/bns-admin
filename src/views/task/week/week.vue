@@ -5,16 +5,20 @@
         <vs-button v-show='submit' @click="addNewData" color="primary" type="border" icon-pack="feather" icon="icon-edit-2">添加挑战任务</vs-button>
 
         <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" @updateData="getTaskList" :data="sidebarData" />
-
-        <draggable v-show='submit' :move="onMove" @start="isDragging=true" @end="isDragging=false" :list="taskList" :group="{name:'tags',  pull:'clone', put:false }" class="p-2 cursor-move">
-          <vs-chip v-for="(item, index) in taskList" :key="index" color="primary"> {{ item.name }} </vs-chip>
-        </draggable>
+        <vx-card v-show='submit' title="任务池">
+          <div class="flex justify-between flex-wrap">
+            <draggable :move="onMove" @start="isDragging=true" @end="isDragging=false" :list="taskList" :group="{name:'tags',  pull:'clone', put:false }" class="p-2 cursor-move">
+              <vs-chip v-for="(item, index) in taskList" :key="index" color="primary"> {{ item.name }} </vs-chip>
+            </draggable>
+          </div>
+        </vx-card>
     </div>
 
   </div>
   <div class="vx-row">
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
         <vx-card title="周一" collapse-action refresh-content-action @refresh="closeCardAnimation1">
+          <div class="flex justify-between flex-wrap">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data1_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data1_1,item)" v-for="(item, index) in data1_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -31,10 +35,12 @@
             <draggable :move="onMove" :list="data1_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data1_4,item)" v-for="(item, index) in data1_4" :key="index" closable> {{ item.name }} </vs-chip>
             </draggable>
+          </div>
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
         <vx-card title="周二" collapse-action refresh-content-action @refresh="closeCardAnimation2">
+          <div class="flex justify-between flex-wrap">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data2_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data2_1,item)" v-for="(item, index) in data2_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -51,10 +57,12 @@
             <draggable :move="onMove" :list="data2_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data2_4,item)" v-for="(item, index) in data2_4" :key="index" closable> {{ item.name }} </vs-chip>
             </draggable>
+          </div>
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
         <vx-card title="周三" collapse-action refresh-content-action @refresh="closeCardAnimation3">
+          <div class="flex justify-between flex-wrap">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data3_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data3_1,item)" v-for="(item, index) in data3_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -71,10 +79,12 @@
             <draggable :move="onMove" :list="data3_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data3_4,item)" v-for="(item, index) in data3_4" :key="index" closable> {{ item.name }} </vs-chip>
             </draggable>
+            </div>
         </vx-card>
       </div>
       <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
         <vx-card title="周四" collapse-action refresh-content-action @refresh="closeCardAnimation4">
+          <div class="flex justify-between flex-wrap">
             <vs-divider color="primary"> 任务 </vs-divider>
             <draggable :move="onMove" :list="data4_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data4_1,item)" v-for="(item, index) in data4_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -91,6 +101,7 @@
             <draggable :move="onMove" :list="data4_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
                 <vs-chip @click="remove(data4_4,item)" v-for="(item, index) in data4_4" :key="index" closable> {{ item.name }} </vs-chip>
             </draggable>
+          </div>
         </vx-card>
       </div>
       
@@ -98,6 +109,7 @@
   <div class="vx-row" style="margin-top: 15px;">
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
       <vx-card title="周五" collapse-action refresh-content-action @refresh="closeCardAnimation5">
+        <div class="flex justify-between flex-wrap">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data5_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data5_1,item)" v-for="(item, index) in data5_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -114,10 +126,12 @@
           <draggable :move="onMove" :list="data5_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data5_4,item)" v-for="(item, index) in data5_4" :key="index" closable> {{ item.name }} </vs-chip>
           </draggable>
+        </div>
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
       <vx-card title="周六" collapse-action refresh-content-action @refresh="closeCardAnimation6">
+        <div class="flex justify-between flex-wrap">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data6_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data6_1,item)" v-for="(item, index) in data6_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -134,10 +148,12 @@
           <draggable :move="onMove" :list="data6_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data6_4,item)" v-for="(item, index) in data6_4" :key="index" closable> {{ item.name }} </vs-chip>
           </draggable>
+        </div>
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
       <vx-card title="周日" collapse-action refresh-content-action @refresh="closeCardAnimation7">
+        <div class="flex justify-between flex-wrap">
           <vs-divider color="primary"> 任务 </vs-divider>
           <draggable :move="onMove" :list="data7_1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data7_1,item)" v-for="(item, index) in data7_1" :key="index" closable> {{ item.name }} </vs-chip>
@@ -154,11 +170,13 @@
           <draggable :move="onMove" :list="data7_4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
               <vs-chip @click="remove(data7_4,item)" v-for="(item, index) in data7_4" :key="index" closable> {{ item.name }} </vs-chip>
           </draggable>
+        </div>
       </vx-card>
     </div>
     <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
       <vx-card title="每周挑战" collapse-action refresh-content-action @refresh="closeCardAnimation0">
-          
+          <div class="flex justify-between flex-wrap">
+          </div>
       </vx-card>
     </div>
   </div>
@@ -260,7 +278,6 @@ export default {
           }else{
             _this.submit = false;
           }
-          console.log("submit",_this.submit)
       }else{
           _this.$vs.dialog({
               color: 'danger',
@@ -298,9 +315,6 @@ export default {
         if(relatedElement[i].id == draggedElement.id){
           flag = false;
         }
-      }
-      if(flag){
-        //this.insert(1,1,this.data1_1);
       }
       return flag;
     },
@@ -471,9 +485,7 @@ export default {
         taskChallengeMapList: list
       };
       _this.$https.post("/task/table/insertList",params).then((response) => { 
-        if(response.code == 1){
-            console.log("")
-        }else{
+        if(response.code == 0){
             _this.$vs.dialog({
                 color: 'danger',
                 title: '警告',
@@ -555,10 +567,10 @@ export default {
 </script>
 
 <style scoped>
-.vx-card,.vx-card__collapsible-content,.vx-card__body,.vx-card__body .cursor-move{
+/* .vx-card,.vx-card__collapsible-content,.vx-card__body,.vx-card__body .cursor-move{
     height: 100%;
-}
-.vx-card{
+} */
+/* .vx-card{
   margin-top: 15px;
 }
 .mt-30{
@@ -566,5 +578,5 @@ export default {
 }
 .vs-divider {
   margin-bottom: 0!important;
-}
+} */
 </style>

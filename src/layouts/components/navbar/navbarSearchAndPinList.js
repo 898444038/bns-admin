@@ -18,6 +18,8 @@ export default {
       {title: "竞拍计算器",        url: "/tools/auction",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "级别计算器",        url: "/tools/level",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "24人副本",          url: "/tools/transcript24",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "侠义车计算",          url: "/tools/chivalrousCar",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "装备成长路线",          url: "/tools/equipGrow",                icon: "HomeIcon",           is_bookmarked: false},
 
       // APPS
       {title: "Todo",                       url: "/apps/todo",                          icon: "CheckSquareIcon",    is_bookmarked: false},

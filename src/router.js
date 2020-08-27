@@ -148,6 +148,24 @@ const router = new Router({
                         no_scroll: true,
                     }
                 },
+                {
+                    path: '/tools/chivalrousCar',
+                    name: 'chivalrousCar',
+                    component: () => import('./views/tools/chivalrous/chivalrousCar.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
+                {
+                    path: '/tools/equipGrow',
+                    name: 'equipGrow',
+                    component: () => import('./views/tools/equip/equipGrow.vue'),
+                    meta: {
+                        rule: 'editor',
+                        no_scroll: true,
+                    }
+                },
                 // =============================================================================
                 // Application Routes
                 // =============================================================================
