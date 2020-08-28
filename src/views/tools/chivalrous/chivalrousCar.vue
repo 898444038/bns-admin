@@ -11,7 +11,7 @@
                 </vx-card>
             </div>
         </div>
-        <vs-divider color="warning" class="mt-30"> 挑战 </vs-divider>
+        <vs-divider color="success" class="mt-30">  </vs-divider>
         <div class="vx-row">
             <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4">
                 <vx-card title="任务" collapse-action refresh-content-action @refresh="closeCardAnimation1">
@@ -50,10 +50,64 @@
                 </vx-card>
             </div>
         </div>
+        <vs-divider color="success" class="mt-30">  </vs-divider>
+        <!-- <div class="vx-row">
+            <div class="vx-col w-full lg:w-1/1 sm:w-1/1 mb-base">
+                <vx-card class="p-2">
+                    <div class="flex justify-between text-center">
+                        <span style="margin: 10px auto;">
+                            <p class="text-xl font-semibold">
+                                <vs-input-number :min="min" :max="max" :size="size" :step="step" label="车次数:" v-model="count" style="float:left"/>
+                                <vs-button @click="countChallenge" color="primary" icon-pack="feather" icon="icon-edit-2" style="margin: 0px 13px 0 20px;">计算</vs-button>
+                            </p>
+                        </span>
+                    </div>
+                </vx-card>
+            </div>
+        </div> -->
         <div class="vx-row">
-            <div class="vx-col w-1/1 md:w-1/1 xl:w-1/1">
-                <vs-input-number :min="min" :max="max" :size="size" :step="step" label="最大任务数:" v-model="count"/>
-                <vs-button @click="countChallenge" color="primary" icon-pack="feather" icon="icon-edit-2" style="margin: 0px 13px;width: 100%;">计算</vs-button>
+            <div class="flex justify-between text-center" style="width: 100%;">
+                <span style="margin: 10px auto;">
+                    <p>
+                        <vs-input-number :min="min" :max="max" :size="size" :step="step" label="分配车次数:" v-model="count" style="float:left"/>
+                        <vs-button @click="countChallenge" color="primary" icon-pack="feather" icon="icon-edit-2" style="float: left;margin: 0px 13px 0 20px;">计算</vs-button>
+                    </p>
+                </span>
+            </div>
+        </div>
+        <!-- <div class="container">
+            <div class="row justify-content-center">
+
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-1">
+                    <vs-button @click="countChallenge" color="primary" icon-pack="feather" icon="icon-edit-2" stype="margin:0 auto;">计算</vs-button>
+                </div>
+            </div>
+        </div> -->
+        <vs-divider color="danger" class="mt-30"> 计算结果 </vs-divider>
+        <div class="vx-row">
+            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4" v-for="(items, i) in resultList" :key="i">
+                <vx-card :title="'侠义车'+(i+1)" collapse-action refresh-content-action @refresh="closeCardAnimationResult">
+                    <div class="flex justify-between flex-wrap">
+                    <vs-divider color="primary"> 任务 </vs-divider>
+                    <draggable :move="onMove" :list="items.data1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
+                        <vs-chip @click="remove(items.data1,item)" v-for="(item, index) in items.data1" :color="item.color" :key="index" closable> {{ item.name }} </vs-chip>
+                    </draggable>
+                    <vs-divider color="success" class="mt-30"> 入门 </vs-divider>
+                    <draggable :move="onMove" :list="items.data2" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
+                        <vs-chip @click="remove(items.data2,item)" v-for="(item, index) in items.data2" :color="item.color" :key="index" closable> {{ item.name }} </vs-chip>
+                    </draggable>
+                    <vs-divider color="warning" class="mt-30"> 普通 </vs-divider>
+                    <draggable :move="onMove" :list="items.data3" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
+                        <vs-chip @click="remove(items.data3,item)" v-for="(item, index) in items.data3" :color="item.color" :key="index" closable> {{ item.name }} </vs-chip>
+                    </draggable>
+                    <vs-divider color="danger" class="mt-30"> 熟练 </vs-divider>
+                    <draggable :move="onMove" :list="items.data4" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
+                        <vs-chip @click="remove(items.data4,item)" v-for="(item, index) in items.data4" :color="item.color" :key="index" closable> {{ item.name }} </vs-chip>
+                    </draggable>
+                    </div>
+                </vx-card>
             </div>
         </div>
     </div>
@@ -76,11 +130,13 @@ export default {
             data_3: [],
             data_4: [],
 
-            min: 4,
-            max: 10,
-            count: 4,
+            min: 2,
+            max: 4,
+            count: 3,
             step: 1,
             size: '',//medium,small,mini
+
+            resultList:[]
         }
     },
     mounted(){
@@ -115,7 +171,9 @@ export default {
             };
             _this.$https.post("/tools/countChallenge",params).then((response) => { 
                 if(response.code == 1){
-                    console.log("countChallenge",response);
+                    let resultList = response.data;
+                    _this.resultList = resultList;
+                    console.log("countChallenge",resultList);
                 }else{
                     _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
                 }
@@ -206,7 +264,13 @@ export default {
             let result = this.resultData;
             _this.data_4 = JSON.parse(JSON.stringify(result.data_4));
             card.removeRefreshAnimation(500);
-        }
+        },
+        closeCardAnimationResult(card){
+            card.removeRefreshAnimation(500);
+        },
+        remove(array,item) {
+            array.splice(array.indexOf(item), 1)
+        },
     }
 }
 </script>
