@@ -87,8 +87,8 @@
         </div> -->
         <vs-divider color="danger" class="mt-30"> 计算结果 </vs-divider>
         <div class="vx-row">
-            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4" v-for="(items, i) in resultList" :key="i">
-                <vx-card :title="'侠义车'+(i+1)" collapse-action refresh-content-action @refresh="closeCardAnimationResult">
+            <div ref='result' class="vx-col w-1/2 md:w-1/3 xl:w-1/4" v-for="(items, i) in resultList" :key="i">
+                <vx-card :title="'侠义车'+(i+1)" :cardId='i' collapse-action refresh-content-action @refresh="closeCardAnimationResult">
                     <div class="flex justify-between flex-wrap">
                     <vs-divider color="primary"> 任务 </vs-divider>
                     <draggable :move="onMove" :list="items.data1" :group="{name:'tags',pull:false}" class="p-2 cursor-move">
@@ -136,7 +136,8 @@ export default {
             step: 1,
             size: '',//medium,small,mini
 
-            resultList:[]
+            resultList:[],
+            resultCacheList:[]
         }
     },
     mounted(){
@@ -173,7 +174,7 @@ export default {
                 if(response.code == 1){
                     let resultList = response.data;
                     _this.resultList = resultList;
-                    console.log("countChallenge",resultList);
+                    _this.resultCacheList = JSON.parse(JSON.stringify(resultList));
                 }else{
                     _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
                 }
@@ -219,7 +220,6 @@ export default {
             var _this = this;
             _this.$https.get("/task/table/selectListByWeek",{}).then((response) => { 
                 if(response.code == 1){
-                    console.log(response)
                     let result = response.data;
                     let obj = JSON.parse(JSON.stringify(response.data));
                     _this.resultData = obj;
@@ -266,6 +266,12 @@ export default {
             card.removeRefreshAnimation(500);
         },
         closeCardAnimationResult(card){
+            //let index = card.$attrs.cardId;
+            let _this = this;
+            let resultCacheList = JSON.parse(JSON.stringify(_this.resultCacheList));
+            _this.resultList = resultCacheList;
+            
+            //_this.$set(_this.resultList[index], 0 , resultCacheList[index]);  
             card.removeRefreshAnimation(500);
         },
         remove(array,item) {
