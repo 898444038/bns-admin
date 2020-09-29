@@ -16,8 +16,8 @@ export default {
 		Tools: '工具',
 			Auction: '竞拍计算器',
 			Level: '级别计算器',
-			transcript24: '24人副本',
-			chivalrousCar: '侠义车计算',
+			transcript24: '计时器',
+			chivalrousCar: '侠义分配',
 			equipGrow: '装备成长路线',
 
 		Apps: '应用',

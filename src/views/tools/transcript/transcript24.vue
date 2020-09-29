@@ -4,6 +4,307 @@
 			<vx-card style='margin: 0;'>
 				<div class="vx-row mb-6">
                     <vs-tabs alignment="center">
+                        <vs-tab label="白雾森林" icon-pack="feather" icon="icon-home">
+                            <div class="vx-row">
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/2 mb-base" style='margin-bottom: 1rem !important;'>
+                                    <vs-button color="primary" type="filled">新增频道</vs-button>
+                                </div>
+                            </div>
+                            <div class="vx-row">
+                                <!-- <div v-for="(item,index) in fdl" :key="index" class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="item.title" class="p-2" refresh-content-action @refresh="closeCard">
+                                        <div class="count-down text-center">
+                                            <countdown :time="item.value">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟">
+                                                        <vs-button @click="cutTime0(index)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button>
+                                                    </vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间">
+                                                        <flat-pickr :config="configdateTimePicker" v-model="item.time" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/>
+                                                    </vx-tooltip>
+                                                    <vx-tooltip text="加1分钟">
+                                                        <vs-button @click="addTime0(index)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button>
+                                                    </vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div> -->
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_1" class="p-2" refresh-content-action @refresh="closeFdlCard1">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_1">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(1)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_1" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(1)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_2" class="p-2" refresh-content-action @refresh="closeFdlCard2">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_2">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(2)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_2" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(2)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_3" class="p-2" refresh-content-action @refresh="closeFdlCard3">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_3">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(3)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_3" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(3)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_4" class="p-2" refresh-content-action @refresh="closeFdlCard4">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_4">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(4)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_4" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(4)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_5" class="p-2" refresh-content-action @refresh="closeFdlCard5">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_5">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(5)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_5" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(5)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_6" class="p-2" refresh-content-action @refresh="closeFdlCard6">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_6">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(6)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_6" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(6)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_7" class="p-2" refresh-content-action @refresh="closeFdlCard7">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_7">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(7)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_7" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(7)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_8" class="p-2" refresh-content-action @refresh="closeFdlCard8">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_8">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(8)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_8" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(8)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_9" class="p-2" refresh-content-action @refresh="closeFdlCard9">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_9">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(9)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_9" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(9)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_10" class="p-2" refresh-content-action @refresh="closeFdlCard10">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_10">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(10)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_10" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(10)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_11" class="p-2" refresh-content-action @refresh="closeFdlCard11">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_11">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(11)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_11" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(11)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                                <div class="vx-col w-full lg:w-1/3 sm:w-1/3 mb-base">
+                                    <vx-card :title="fdl_title_12" class="p-2" refresh-content-action @refresh="closeFdlCard12">
+                                        <div class="count-down text-center">
+                                            <countdown :time="fdl_value_12">
+                                                <template slot-scope="props">
+                                                    <div class="single-counter"><span class="timer">{{ props.hours }}</span><span>Hours</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.minutes }}</span><span>Minutes</span></div>
+                                                    <div class="single-counter"><span class="timer">{{ props.seconds }}</span><span>Seconds</span></div>
+                                                </template>
+                                            </countdown>
+                                        </div>
+                                        <div class="flex justify-between text-center">
+                                            <span style="margin: 10px auto;">
+                                                <p class="text-xl font-semibold">
+                                                    <vx-tooltip text="减1分钟"><vs-button @click="cutTime0(12)" radius color="primary" type="border" icon-pack="feather" icon="icon-minus" style="float: left;"></vs-button></vx-tooltip>
+                                                    <vx-tooltip text="更新死亡时间"><flat-pickr :config="configdateTimePicker" v-model="fdl_time_12" placeholder="选择时间" style="margin-left:10px;margin-right:10px;width: 100px;"/></vx-tooltip>
+                                                    <vx-tooltip text="加1分钟"><vs-button @click="addTime0(12)" radius color="primary" type="border" icon-pack="feather" icon="icon-plus" style="float: right;"></vs-button></vx-tooltip>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </vx-card>
+                                </div>
+                            </div>
+                        </vs-tab>
                         <vs-tab label="海蛇补给基地" icon-pack="feather" icon="icon-home">
                             <div class="vx-row">
                                 <div class="vx-col w-full lg:w-1/3 sm:w-1/2 mb-base" style='margin-bottom: 1rem !important;'>
@@ -167,6 +468,83 @@ export default {
     },
     data() {
         return {
+            refresh_fdl: 60000,
+            fdl:[
+                {cardId: 1,title: '1x',value: 0,time: new Date().getTime(),times: new Date().getTime(),refresh: 60000},
+                {cardId: 2,title: '2x',value: 0,time: new Date().getTime(),times: new Date().getTime(),refresh: 60000}
+            ],
+            fdl_title_1: '1x',
+            fdl_value_1: 0,
+            fdl_time_1: new Date().getTime(),
+            fdl_times_1: new Date().getTime(),
+            fdl_refresh_1: 0,
+
+            fdl_title_2: '2x',
+            fdl_value_2: 0,
+            fdl_time_2: new Date().getTime(),
+            fdl_times_2: new Date().getTime(),
+            fdl_refresh_2: 0,
+
+            fdl_title_3: '3x',
+            fdl_value_3: 0,
+            fdl_time_3: new Date().getTime(),
+            fdl_times_3: new Date().getTime(),
+            fdl_refresh_3: 0,
+
+            fdl_title_4: '4x',
+            fdl_value_4: 0,
+            fdl_time_4: new Date().getTime(),
+            fdl_times_4: new Date().getTime(),
+            fdl_refresh_4: 0,
+
+            fdl_title_5: '5x',
+            fdl_value_5: 0,
+            fdl_time_5: new Date().getTime(),
+            fdl_times_5: new Date().getTime(),
+            fdl_refresh_5: 0,
+
+            fdl_title_6: '6x',
+            fdl_value_6: 0,
+            fdl_time_6: new Date().getTime(),
+            fdl_times_6: new Date().getTime(),
+            fdl_refresh_6: 0,
+
+            fdl_title_7: '7x',
+            fdl_value_7: 0,
+            fdl_time_7: new Date().getTime(),
+            fdl_times_7: new Date().getTime(),
+            fdl_refresh_7: 0,
+
+            fdl_title_8: '8x',
+            fdl_value_8: 0,
+            fdl_time_8: new Date().getTime(),
+            fdl_times_8: new Date().getTime(),
+            fdl_refresh_8: 0,
+
+            fdl_title_9: '9x',
+            fdl_value_9: 0,
+            fdl_time_9: new Date().getTime(),
+            fdl_times_9: new Date().getTime(),
+            fdl_refresh_9: 0,
+
+            fdl_title_10: '10x',
+            fdl_value_10: 0,
+            fdl_time_10: new Date().getTime(),
+            fdl_times_10: new Date().getTime(),
+            fdl_refresh_10: 0,
+
+            fdl_title_11: '11x',
+            fdl_value_11: 0,
+            fdl_time_11: new Date().getTime(),
+            fdl_times_11: new Date().getTime(),
+            fdl_refresh_11: 0,
+
+            fdl_title_12: '12x',
+            fdl_value_12: 0,
+            fdl_time_12: new Date().getTime(),
+            fdl_times_12: new Date().getTime(),
+            fdl_refresh_12: 0,
+
             //倒计时//时间插件//刷新时间
             value1: 0,
             time1: new Date().getTime(),
@@ -199,16 +577,30 @@ export default {
     },
     mounted(){
         var _this = this;
-        var params = {codes:'transcript24_hs_1,transcript24_hs_2,transcript24_hs_3'};
+        var params = {codes:'transcript24_hs_1,transcript24_hs_2,transcript24_hs_3,refresh_fdl'};
         _this.$https.get("/config/selectMap",params).then((response) => { 
             if(response.code == 1){
                 _this.transcript24_hs_1 = response.data.transcript24_hs_1;
                 _this.transcript24_hs_2 = response.data.transcript24_hs_2;
                 _this.transcript24_hs_3 = response.data.transcript24_hs_3;
+                _this.refresh_fdl = parseInt(response.data.refresh_fdl);
 
                 _this.refresh1 = response.data.transcript24_hs_1;
                 _this.refresh2 = response.data.transcript24_hs_2;
                 _this.refresh3 = response.data.transcript24_hs_3;
+                _this.refresh3 = response.data.transcript24_hs_3;
+                _this.fdl_refresh_1 = _this.refresh_fdl;
+                _this.fdl_refresh_2 = _this.refresh_fdl;
+                _this.fdl_refresh_3 = _this.refresh_fdl;
+                _this.fdl_refresh_4 = _this.refresh_fdl;
+                _this.fdl_refresh_5 = _this.refresh_fdl;
+                _this.fdl_refresh_6 = _this.refresh_fdl;
+                _this.fdl_refresh_7 = _this.refresh_fdl;
+                _this.fdl_refresh_8 = _this.refresh_fdl;
+                _this.fdl_refresh_9 = _this.refresh_fdl;
+                _this.fdl_refresh_10 = _this.refresh_fdl;
+                _this.fdl_refresh_11 = _this.refresh_fdl;
+                _this.fdl_refresh_12 = _this.refresh_fdl;
             }else{
                 _this.$vs.dialog({
                     color: 'danger',
@@ -225,6 +617,42 @@ export default {
         })
     },
     methods:{
+        closeCard(card){
+            let _this = this;
+            var list = this.fdl;
+            var item = {};
+            var index = '';
+            for(let i=0;i<list.length;i++){
+                if(list[i].title == card.title){
+                    index = i;
+                    item = JSON.parse(JSON.stringify(list[i]));
+                    break;
+                }
+            }
+            let nowTime = this.getNowTime();
+            if(item){
+                item.value = this.refresh_fdl;
+                item.time = nowTime;
+                item.times = nowTime;
+                item.refresh = this.refresh_fdl;
+                //list[index] = item;
+            }
+            this.fdl.splice(index, 1, item)
+            this.$set(_this.fdl,index,item);
+            card.removeRefreshAnimation(500);
+        },
+        closeFdlCard1(card){let nowTime = this.getNowTime();this.fdl_value_1=0;this.fdl_time_1=nowTime;this.fdl_times_1=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard2(card){let nowTime = this.getNowTime();this.fdl_value_2=0;this.fdl_time_2=nowTime;this.fdl_times_2=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard3(card){let nowTime = this.getNowTime();this.fdl_value_3=0;this.fdl_time_3=nowTime;this.fdl_times_3=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard4(card){let nowTime = this.getNowTime();this.fdl_value_4=0;this.fdl_time_4=nowTime;this.fdl_times_4=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard5(card){let nowTime = this.getNowTime();this.fdl_value_5=0;this.fdl_time_5=nowTime;this.fdl_times_5=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard6(card){let nowTime = this.getNowTime();this.fdl_value_6=0;this.fdl_time_6=nowTime;this.fdl_times_6=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard7(card){let nowTime = this.getNowTime();this.fdl_value_7=0;this.fdl_time_7=nowTime;this.fdl_times_7=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard8(card){let nowTime = this.getNowTime();this.fdl_value_8=0;this.fdl_time_8=nowTime;this.fdl_times_8=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard9(card){let nowTime = this.getNowTime();this.fdl_value_9=0;this.fdl_time_9=nowTime;this.fdl_times_9=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard10(card){let nowTime = this.getNowTime();this.fdl_value_10=0;this.fdl_time_10=nowTime;this.fdl_times_10=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard11(card){let nowTime = this.getNowTime();this.fdl_value_11=0;this.fdl_time_11=nowTime;this.fdl_times_11=nowTime;card.removeRefreshAnimation(500);},
+        closeFdlCard12(card){let nowTime = this.getNowTime();this.fdl_value_12=0;this.fdl_time_12=nowTime;this.fdl_times_12=nowTime;card.removeRefreshAnimation(500);},
         closeCardAnimation1(card){
             let nowTime = this.getNowTime();
             this.value1 = 0;
@@ -251,6 +679,86 @@ export default {
             this.refresh3 = this.transcript24_hs_3;
             this.activeClass3 = '';
             card.removeRefreshAnimation(500);
+        },
+        cutTime0(type){
+            let value=0;
+            let time=0;
+            let times=0;
+            if(type==1){value = this.fdl_value_1;time = this.fdl_time_1;times = this.fdl_times_1;}
+            else if(type==2){value = this.fdl_value_2;time = this.fdl_time_2;times = this.fdl_times_2;}
+            else if(type==3){value = this.fdl_value_3;time = this.fdl_time_3;times = this.fdl_times_3;}
+            else if(type==4){value = this.fdl_value_4;time = this.fdl_time_4;times = this.fdl_times_4;}
+            else if(type==5){value = this.fdl_value_5;time = this.fdl_time_5;times = this.fdl_times_5;}
+            else if(type==6){value = this.fdl_value_6;time = this.fdl_time_6;times = this.fdl_times_6;}
+            else if(type==7){value = this.fdl_value_7;time = this.fdl_time_7;times = this.fdl_times_7;}
+            else if(type==8){value = this.fdl_value_8;time = this.fdl_time_8;times = this.fdl_times_8;}
+            else if(type==9){value = this.fdl_value_9;time = this.fdl_time_9;times = this.fdl_times_9;}
+            else if(type==10){value = this.fdl_value_10;time = this.fdl_time_10;times = this.fdl_times_10;}
+            else if(type==11){value = this.fdl_value_11;time = this.fdl_time_11;times = this.fdl_times_11;}
+            else if(type==12){value = this.fdl_value_12;time = this.fdl_time_12;times = this.fdl_times_12;}
+            let nowTime = new Date().getTime();
+            let refresh = this.refresh_fdl;
+            if(nowTime - times >= refresh){
+                times = nowTime - refresh;
+                time = times;
+                value = 0;
+            }else{
+                times -= 60000;
+                time = times;
+                value = nowTime - times;
+            }
+            if(type==1){this.fdl_value_1 = value;this.fdl_time_1 = time;this.fdl_times_1 = times;}
+            else if(type==2){this.fdl_value_2 = value;this.fdl_time_2 = time;this.fdl_times_2 = times;}
+            else if(type==3){this.fdl_value_3 = value;this.fdl_time_3 = time;this.fdl_times_3 = times;}
+            else if(type==4){this.fdl_value_4 = value;this.fdl_time_4 = time;this.fdl_times_4 = times;}
+            else if(type==5){this.fdl_value_5 = value;this.fdl_time_5 = time;this.fdl_times_5 = times;}
+            else if(type==6){this.fdl_value_6 = value;this.fdl_time_6 = time;this.fdl_times_6 = times;}
+            else if(type==7){this.fdl_value_7 = value;this.fdl_time_7 = time;this.fdl_times_7 = times;}
+            else if(type==8){this.fdl_value_8 = value;this.fdl_time_8 = time;this.fdl_times_8 = times;}
+            else if(type==9){this.fdl_value_9 = value;this.fdl_time_9 = time;this.fdl_times_9 = times;}
+            else if(type==10){this.fdl_value_10 = value;this.fdl_time_10 = time;this.fdl_times_10 = times;}
+            else if(type==11){this.fdl_value_11 = value;this.fdl_time_11 = time;this.fdl_times_11 = times;}
+            else if(type==12){this.fdl_value_12 = value;this.fdl_time_12 = time;this.fdl_times_12 = times;}
+        },
+        addTime0(type){
+            let value=0;
+            let time=0;
+            let times=0;
+            if(type==1){value = this.fdl_value_1;time = this.fdl_time_1;times = this.fdl_times_1;}
+            else if(type==2){value = this.fdl_value_2;time = this.fdl_time_2;times = this.fdl_times_2;}
+            else if(type==3){value = this.fdl_value_3;time = this.fdl_time_3;times = this.fdl_times_3;}
+            else if(type==4){value = this.fdl_value_4;time = this.fdl_time_4;times = this.fdl_times_4;}
+            else if(type==5){value = this.fdl_value_5;time = this.fdl_time_5;times = this.fdl_times_5;}
+            else if(type==6){value = this.fdl_value_6;time = this.fdl_time_6;times = this.fdl_times_6;}
+            else if(type==7){value = this.fdl_value_7;time = this.fdl_time_7;times = this.fdl_times_7;}
+            else if(type==8){value = this.fdl_value_8;time = this.fdl_time_8;times = this.fdl_times_8;}
+            else if(type==9){value = this.fdl_value_9;time = this.fdl_time_9;times = this.fdl_times_9;}
+            else if(type==10){value = this.fdl_value_10;time = this.fdl_time_10;times = this.fdl_times_10;}
+            else if(type==11){value = this.fdl_value_11;time = this.fdl_time_11;times = this.fdl_times_11;}
+            else if(type==12){value = this.fdl_value_12;time = this.fdl_time_12;times = this.fdl_times_12;}
+            let refresh = this.refresh_fdl;
+            let nowTime = new Date().getTime();
+            if(nowTime - times < 60000){
+                times = nowTime;
+                time = times;
+                value = refresh;
+            }else{
+                times += 60000;
+                time = times;
+                value = nowTime - times;
+            }
+            if(type==1){this.fdl_value_1 = value;this.fdl_time_1 = time;this.fdl_times_1 = times;}
+            else if(type==2){this.fdl_value_2 = value;this.fdl_time_2 = time;this.fdl_times_2 = times;}
+            else if(type==3){this.fdl_value_3 = value;this.fdl_time_3 = time;this.fdl_times_3 = times;}
+            else if(type==4){this.fdl_value_4 = value;this.fdl_time_4 = time;this.fdl_times_4 = times;}
+            else if(type==5){this.fdl_value_5 = value;this.fdl_time_5 = time;this.fdl_times_5 = times;}
+            else if(type==6){this.fdl_value_6 = value;this.fdl_time_6 = time;this.fdl_times_6 = times;}
+            else if(type==7){this.fdl_value_7 = value;this.fdl_time_7 = time;this.fdl_times_7 = times;}
+            else if(type==8){this.fdl_value_8 = value;this.fdl_time_8 = time;this.fdl_times_8 = times;}
+            else if(type==9){this.fdl_value_9 = value;this.fdl_time_9 = time;this.fdl_times_9 = times;}
+            else if(type==10){this.fdl_value_10 = value;this.fdl_time_10 = time;this.fdl_times_10 = times;}
+            else if(type==11){this.fdl_value_11 = value;this.fdl_time_11 = time;this.fdl_times_11 = times;}
+            else if(type==12){this.fdl_value_12 = value;this.fdl_time_12 = time;this.fdl_times_12 = times;}
         },
         cutTime(type){
             let nowTime = new Date().getTime();
@@ -392,7 +900,19 @@ export default {
             let timestamp = _this.strToTime(val1);
             _this.value3 = _this.refresh3 - (_this.getNowTime() - timestamp);
             this.toggleClass(3);
-        }
+        },
+        fdl_time_1(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_1 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_2(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_2 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_3(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_3 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_4(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_4 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_5(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_5 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_6(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_6 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_7(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_7 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_8(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_8 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_9(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_9 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_10(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_10 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_11(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_11 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
+        fdl_time_12(val){let _this = this;let timestamp = _this.strToTime(val);_this.fdl_value_12 = _this.refresh_fdl - (_this.getNowTime() - timestamp);},
     }
 }
 
