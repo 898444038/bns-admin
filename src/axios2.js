@@ -14,9 +14,9 @@ import QS from 'qs';
 
 
 var instance = axios.create({
-  // baseURL: 'http://localhost:8090/bns'
+  baseURL: 'http://localhost:8090/bns'
   // baseURL: 'http://localhost:90/bns'
-  baseURL: 'http://101.37.38.159:90/bns'
+  // baseURL: 'http://101.37.38.159:90/bns'
 });
 // 设置请求超时
 instance.defaults.timeout = 10000

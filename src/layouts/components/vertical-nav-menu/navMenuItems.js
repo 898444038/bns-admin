@@ -46,6 +46,7 @@ export default [
     i18n: "Config",
     items: [
       {url: "/config/material", name: "ConfigMaterial", slug: "configMaterial", icon: "MailIcon",i18n: "ConfigMaterial"},
+      {url: "/config/luck", name: "configLuck", slug: "configLuck", icon: "MailIcon",i18n: "configLuck"},
     ]
   },
   {
@@ -67,6 +68,7 @@ export default [
       {url: "/tools/transcript24", name: "transcript24", slug: "transcript24", icon: "MailIcon", i18n: "transcript24"},
       {url: "/tools/chivalrousCar", name: "chivalrousCar", slug: "chivalrousCar", icon: "MailIcon", i18n: "chivalrousCar"},
       {url: "/tools/equipGrow", name: "equipGrow", slug: "equipGrow", icon: "MailIcon", i18n: "equipGrow"},
+      {url: "/tools/luck", name: "luck", slug: "luck", icon: "MailIcon", i18n: "luck"},
     ]
   },
   // {

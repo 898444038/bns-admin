@@ -10,6 +10,7 @@ export default {
 			PlayerStar: '角色星级',
 		Config: '配置',
 			ConfigMaterial: '材料配置',
+			configLuck: '抽奖配置',
 		Task: '任务',
 			TaskCalendar: '活动日历',
 			TaskWeek: '挑战任务',
@@ -19,6 +20,7 @@ export default {
 			transcript24: '计时器',
 			chivalrousCar: '侠义分配',
 			equipGrow: '装备成长路线',
+			luck: '抽奖模拟器',
 
 		Apps: '应用',
 			Todo: '待办事项',

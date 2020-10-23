@@ -11,6 +11,7 @@ export default {
       {title: "角色信息",          url: "/player/star",                icon: "HomeIcon",           is_bookmarked: false},
       // 配置
       {title: "材料配置",          url: "/config/material",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "抽奖配置",          url: "/config/luck",                icon: "HomeIcon",           is_bookmarked: false},
       // 任务
       {title: "任务日历",          url: "/task/calendar",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "每日挑战",          url: "/task/week",                icon: "HomeIcon",           is_bookmarked: false},
@@ -20,6 +21,7 @@ export default {
       {title: "24人副本",          url: "/tools/transcript24",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "侠义车计算",          url: "/tools/chivalrousCar",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "装备成长路线",          url: "/tools/equipGrow",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "抽奖模拟器",          url: "/tools/luck",                icon: "HomeIcon",           is_bookmarked: false},
 
       // APPS
       {title: "Todo",                       url: "/apps/todo",                          icon: "CheckSquareIcon",    is_bookmarked: false},

@@ -97,6 +97,12 @@ const router = new Router({
                         no_scroll: true,
                     }
                 },
+                {
+                    path: '/config/luck',
+                    name: 'configLuck',
+                    component: () => import('./views/config/configLuck.vue'),
+                    meta: { rule: 'editor', no_scroll: true}
+                },
                 // =============================================================================
                 // 任务 路由
                 // =============================================================================
@@ -164,6 +170,15 @@ const router = new Router({
                     meta: {
                         rule: 'editor',
                         no_scroll: true,
+                    }
+                },
+                {
+                    path: '/tools/luck',
+                    name: 'luck',
+                    component: () => import('./views/tools/luck/luck.vue'),
+                    meta: { 
+                        rule: 'editor', 
+                        no_scroll: true
                     }
                 },
                 // =============================================================================
