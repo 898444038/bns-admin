@@ -73,7 +73,7 @@
                   <vxe-button type="text" v-show="false" @click="removeItem(row)"><i class="feather icon-trash-2"></i></vxe-button>
                 </vx-tooltip>
                 <vx-tooltip text="设置抽奖项">
-                  <vxe-button type="text" @click="settings = true"><i class="feather icon-settings"></i></vxe-button>
+                  <vxe-button type="text" @click="settingsItem(row)"><i class="feather icon-settings"></i></vxe-button>
                 </vx-tooltip>
                 <vx-tooltip text="设置规则">
                   <vxe-button type="text" @click="rules = true"><i class="feather icon-tag"></i></vxe-button>
@@ -90,7 +90,7 @@
         :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
         @page-change="handlePageChange">
       </vxe-pager>
-      <vue-loading v-show="loading" type="spin" color="#20a0ff" :size="{ width: '80px', height: '80px' }"></vue-loading>
+      <vue-loading v-show="loading" type="spin" color="#20a0ff"></vue-loading>
     </vx-card>
 
     <vxe-modal v-model="showEdit" :title="selectRow ? '编辑&保存' : '新增&保存'" width="800" min-width="600" min-height="300" :loading="loading" resize destroy-on-close>
@@ -99,22 +99,35 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="settings" width="600" show-footer>
+    <vxe-modal v-model="settings" width="800">
       <template v-slot>
-        <vxe-table
-          show-overflow
-          height="300"
-          :sync-resize="settings"
-          :data="itemData">
-          <vxe-table-column type="html" width="60"><i class="feather icon-map-pin"></i></vxe-table-column>
-          <vxe-table-column field="name" title="名称"></vxe-table-column>
-          <vxe-table-column field="weight" title="权重"></vxe-table-column>
-        </vxe-table>
-        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items">
+        <vs-button @click="addLuckItem()"><i class="feather icon-plus"></i>新增</vs-button>
+        <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"></div>
+          <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12">名称</div>
+          <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12">权重</div>
+          <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12">备注</div>
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
+        </div>
+        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 477px;overflow: scroll;border: 0;">
           <SlickItem class="list-item" v-for="(item, index) in items" :index="index" :key="index">
-            {{ item }}
+            <div class="vx-row" style="margin: 0;">
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
+              <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
+              <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12"><vs-input class="inputx" placeholder="权重" v-model="item.weight" style="width: 100%;"/></div>
+              <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12"><vs-input class="inputx" placeholder="备注" v-model="item.remark" style="width: 100%;"/></div>
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeLuckItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div>
+            </div>
           </SlickItem>
         </SlickList>
+        <vxe-form title-align="right" title-width="60">
+          <vxe-form-item align="center" span="24">
+            <template v-slot>
+              <vs-button style="width:100%" @click="submitLuckItem">提交</vs-button>
+              <!-- <vxe-button type="reset">重置</vxe-button> -->
+            </template>
+          </vxe-form-item>
+        </vxe-form>
       </template>
     </vxe-modal>
 
@@ -189,7 +202,7 @@ export default {
         { align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
       ],
       items: [
-        'Item1', 'Item2', 'Item3'
+        {name:'',weight:'',remark:''}
       ]
     }
   },
@@ -206,6 +219,34 @@ export default {
     
   },
   methods: {
+    addLuckItem(){
+      this.items.push({name:'',weight:'',remark:''});
+    },
+    removeLuckItem(index){
+      if(this.items.length <=1){
+        this.$XModal.message({ message: '无法继续删除',zIndex:222222 })
+        return;
+      }
+      this.items.splice(index,1);
+    },
+    submitLuckItem(){
+      var _this = this;
+      _this.loading = true;
+      var params = {
+        id: this.formData.id,
+        items: JSON.stringify(this.items)
+      }
+      _this.$https.post("/luck/update",params).then((response) => { 
+        console.log("luck update response",response);
+        if(response.code == 1){
+            _this.settings = false;
+            _this.$vs.dialog({color: 'success',title: '成功',text: "更新成功",accept: function(){}});
+        }else{
+            _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
+        }
+        _this.loading = false;
+      }).catch((error) => { console.log(error) });
+    },
     // 导出
     exportDataEvent () {
       this.$refs.xTable.openExport({
@@ -260,6 +301,16 @@ export default {
         }
       })
     },
+    settingsItem(row){
+      this.formData = {
+        id: row.id,
+      }
+      this.settings = true
+      this.items = JSON.parse(row.items);
+      if(!this.items){
+        this.items = []
+      }
+    },
     submitItem () {
       var _this = this;
       _this.loading = true
@@ -310,6 +361,9 @@ export default {
   padding: 0 4px 0 4px;
 }
 .list-item{
-  z-index: 222222
+  z-index: 222222;
+  /* border: 1px solid rgb(238, 238, 238); */
+  padding: 5px;
+  margin: 6px 0;
 }
 </style>

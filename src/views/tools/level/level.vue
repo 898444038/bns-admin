@@ -6,11 +6,13 @@
                     <vs-tabs alignment="center">
                         <vs-tab label="洪门星计算" icon-pack="feather" icon="icon-home">
                             <div class="vx-row mb-6" style="margin-top: 20px;">
-                                <div class="vx-col">
+                                <div class="vx-col" style="width:100%">
                                     <div class="centerx centery">
                                         <vs-slider icon="star" ticks max='35' v-model="stars"/>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx">
                                         <vs-input label-placeholder="当前已有经验(万)" v-model="currExp" class="is-label-placeholder" />
@@ -43,11 +45,13 @@
                         </vs-tab>
                         <vs-tab label="侠义团计算" icon-pack="feather" icon="icon-box">
                             <div class="vx-row mb-6" style="margin-top: 20px;">
-                                <div class="vx-col">
+                                <div class="vx-col" style="width:100%">
                                     <div class="centerx centery">
                                         <vs-slider icon="star" ticks max='180' v-model="chivalrous"/>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="vx-row mb-6" style="margin-top: 20px;">
                                 <div class="vx-col">
                                     <div class="centerx">
                                         <vs-input label-placeholder="当前已有经验(万)" v-model="currExp2" class="is-label-placeholder" />
