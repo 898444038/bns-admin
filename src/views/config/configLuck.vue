@@ -99,7 +99,7 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="settings" width="800">
+    <vxe-modal v-model="settings" title="设置抽奖项" width="800">
       <template v-slot>
         <vs-button @click="addLuckItem()"><i class="feather icon-plus"></i>新增</vs-button>
         <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
@@ -109,7 +109,7 @@
           <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12">备注</div>
           <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
         </div>
-        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 477px;overflow: scroll;border: 0;">
+        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 380px;overflow: scroll;border: 0;">
           <SlickItem class="list-item" v-for="(item, index) in items" :index="index" :key="index">
             <div class="vx-row" style="margin: 0;">
               <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
@@ -131,7 +131,7 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="rules" width="600" show-footer>
+    <vxe-modal v-model="rules" width="600" title="设置抽奖规则" show-footer>
       <template v-slot>
         
       </template>

@@ -14,9 +14,8 @@
       icon-pack="feather"
       icon="icon-settings" />
 
-    <!-- 自定义项内容 -->
+    <!-- 自定义项内容 click-not-close -->
     <vs-sidebar
-      click-not-close
       hidden-background
       position-right
       v-model="active"

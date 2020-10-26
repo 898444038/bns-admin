@@ -44,8 +44,32 @@
           </div>
         </div>
 
+        <div class="vx-row" v-show="showTotal" style="margin: 15px 0px 0px;width:100%">
+          <vs-divider color="primary"> 统计 </vs-divider>
+          <div class="vx-row" style="margin: 0;width: 100%;">
+            <div class="vx-col w-full mb-base">
+              <vs-table :data="totalList">
+                <template slot="thead">
+                  <vs-th style="width:200px">名称</vs-th>
+                  <vs-th style="width:100px">权重</vs-th>
+                  <vs-th style="width:200px">中奖数量</vs-th>
+                  <vs-th>中奖位置</vs-th>
+                </template>
+                <template slot-scope="{data}">
+                  <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+                    <vs-td :data="data[indextr].name"> {{ data[indextr].name }} </vs-td>
+                    <vs-td :data="data[indextr].weight"> {{ data[indextr].weight }} </vs-td>
+                    <vs-td :data="data[indextr].count"> {{ data[indextr].count }} </vs-td>
+                    <vs-td :data="data[indextr].index"> {{ data[indextr].index }} </vs-td>
+                  </vs-tr>
+                </template>
+              </vs-table>
+            </div>
+          </div>
+        </div>
+
         <div v-for="(data,index) in dataList" :key="index" class="vx-row" style="margin: 15px 0px 0px;width:100%">
-          <vs-divider color="danger"> 第{{data.loop}}轮 </vs-divider>
+          <vs-divider color="primary"> 第{{data.loop}}轮 </vs-divider>
           <div class="vx-row" style="margin: 0;width: 100%;">
             <div class="vx-col w-full mb-base">
               <vs-table :data="data.list">
@@ -88,7 +112,9 @@ export default {
       lucks: [],
       loop: 10,
       count: 50,
+      showTotal: false,
       dataList: [],
+      totalList: [],
       users: [
         {
           "id": 1,
@@ -143,9 +169,12 @@ export default {
         if(response.code == 1){
             console.log("luck update response",response.data);
             _this.$vs.dialog({color: 'success',title: '成功',text: "抽奖完成",accept: function(){}});
-            _this.dataList = response.data;
+            _this.dataList = response.data.list;
+            _this.totalList = response.data.total;
+            _this.showTotal = true;
         }else{
             _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
+            _this.showTotal = false;
         }
       }).catch((error) => { console.log(error) });
     },
@@ -165,5 +194,8 @@ export default {
 <style scoped>
 .centerx,.centerx .vs-con-input-label{
   margin-top: 0!important;
+}
+.vs-dropdown--item{
+  width: 110px;
 }
 </style>
