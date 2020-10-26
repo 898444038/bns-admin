@@ -50,9 +50,9 @@
             <div class="vx-col w-full mb-base">
               <vs-table :data="totalList">
                 <template slot="thead">
-                  <vs-th style="width:200px">名称</vs-th>
-                  <vs-th style="width:100px">权重</vs-th>
-                  <vs-th style="width:200px">中奖数量</vs-th>
+                  <vs-th style="min-width: 60px;">名称</vs-th>
+                  <vs-th style="min-width: 80px;">权重</vs-th>
+                  <vs-th style="min-width: 80px;">中奖数量</vs-th>
                   <vs-th>中奖位置</vs-th>
                 </template>
                 <template slot-scope="{data}">
@@ -60,7 +60,7 @@
                     <vs-td :data="data[indextr].name"> {{ data[indextr].name }} </vs-td>
                     <vs-td :data="data[indextr].weight"> {{ data[indextr].weight }} </vs-td>
                     <vs-td :data="data[indextr].count"> {{ data[indextr].count }} </vs-td>
-                    <vs-td :data="data[indextr].index"> {{ data[indextr].index }} </vs-td>
+                    <vs-td class="word-td" :data="data[indextr].index"> {{ data[indextr].index }} </vs-td>
                   </vs-tr>
                 </template>
               </vs-table>
@@ -74,9 +74,9 @@
             <div class="vx-col w-full mb-base">
               <vs-table :data="data.list">
                 <template slot="thead">
-                  <vs-th style="width:200px">名称</vs-th>
-                  <vs-th style="width:100px">权重</vs-th>
-                  <vs-th style="width:200px">中奖数量</vs-th>
+                  <vs-th style="min-width: 60px;">名称</vs-th>
+                  <vs-th style="min-width: 80px;">权重</vs-th>
+                  <vs-th style="min-width: 80px;">中奖数量</vs-th>
                   <vs-th>中奖位置</vs-th>
                 </template>
                 <template slot-scope="{data}">
@@ -84,7 +84,7 @@
                     <vs-td :data="data[indextr].name"> {{ data[indextr].name }} </vs-td>
                     <vs-td :data="data[indextr].weight"> {{ data[indextr].weight }} </vs-td>
                     <vs-td :data="data[indextr].count"> {{ data[indextr].count }} </vs-td>
-                    <vs-td :data="data[indextr].index"> {{ data[indextr].index }} </vs-td>
+                    <vs-td class="word-td" :data="data[indextr].index"> {{ data[indextr].index }} </vs-td>
                   </vs-tr>
                 </template>
               </vs-table>
@@ -175,4 +175,5 @@ export default {
 .vs-dropdown--item{
   width: 110px;
 }
+.word-td{Word-break: break-all;}
 </style>
