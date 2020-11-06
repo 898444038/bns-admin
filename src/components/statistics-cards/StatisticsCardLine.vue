@@ -13,7 +13,7 @@
               'text-center': !iconRight && hideChart,
               'pb-0': !hideChart
             }">
-                <feather-icon :icon="icon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon>
+                <feather-icon v-if="!hideIcon" :icon="icon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon>
                 <div class="truncate">
                     <h2 class="mb-1 font-bold">{{ statistic }}</h2>
                     <span>{{ statisticTitle }}</span>
@@ -65,6 +65,10 @@ export default{
             default: 'line'
         },
         iconRight: {
+            type: Boolean,
+            default: false
+        },
+        hideIcon: {
             type: Boolean,
             default: false
         },
