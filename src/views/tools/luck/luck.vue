@@ -103,37 +103,46 @@
           <div class="vx-col w-4/12 md:w-4/12 xl:w-4/12">
             <div v-for="(item,index) in huntGroups" :key="index" class="flex">
                 <div v-for="(item2,index2) in item" :key="index2" class="flex-1 bg-grid-color h-12 flex">
-                  <span class="sm:flex hidden m-auto">{{item2}}</span>
+                  <span class="sm:flex hidden m-auto" v-if="item2.isShow">{{item2.value}}</span>
                 </div>
             </div>
           </div>
           <div class="vx-col w-8/12 md:w-8/12 xl:w-8/12">
             <div class="vx-row">
-              <div v-for="(item,index) in huntList1" :key="index" class="vx-col w-1/4 md:w-1/4 xl:w-1/4">
+              <div v-for="(item,index) in huntList1" :key="index" class="vx-col w-1/4 md:w-1/4 xl:w-1/4" style="padding: 0px 8px;">
                 <statistics-card-line
                     hideChart hideIcon
-                    class="mb-base hunt"
+                    class="mb-4 hunt"
                     :statistic="item.value"
                     :statisticTitle="item.name" />
               </div>
             </div>
             <div class="vx-row">
-              <div v-for="(item,index) in huntList2" :key="index" class="vx-col w-1/4 md:w-1/4 xl:w-1/4">
+              <div v-for="(item,index) in huntList2" :key="index" class="vx-col w-1/4 md:w-1/4 xl:w-1/4" style="padding: 0px 8px;">
                 <statistics-card-line
                     hideChart hideIcon
-                    class="mb-base hunt"
+                    class="mb-4 hunt"
                     :statistic="item.value"
                     :statisticTitle="item.name" />
               </div>
             </div>
             <div class="vx-row">
-              <div v-for="(item,index) in huntList3" :key="index" class="vx-col w-1/6 md:w-1/6 xl:w-1/6">
+              <div v-for="(item,index) in huntList3" :key="index" class="vx-col w-1/6 md:w-1/6 xl:w-1/6" style="padding: 0px 8px;">
                 <statistics-card-line
                     hideChart hideIcon
-                    class="mb-base hunt"
+                    class="mb-4 hunt"
                     :statistic="item.value"
                     :statisticTitle="item.name" />
               </div>
+            </div>
+            <div class="vx-row">
+              <span style="display: block;margin-left: 10px;margin-bottom: 8px;">已使用 {{huntKey}} 把寻宝钥匙</span>
+            </div>
+            <div class="vx-row">
+              <vs-button @click="refreshStatisticsHunt" class="operate-btn" type="relief">重新统计</vs-button>
+              <vs-button @click="refreshHunt" class="operate-btn" type="relief">刷新奖池</vs-button>
+              <vs-button @click="getSeriesHunt" class="operate-btn" type="relief" color="success">十连抽</vs-button>
+              <vs-button @click="getSingleHunt" class="operate-btn" type="relief" color="success">单抽</vs-button>
             </div>
           </div>
         </div>
@@ -252,7 +261,11 @@ export default {
         {name:'61~80等',rate:20,value:0},
         {name:'81~100等',rate:20,value:0},
       ],
-      huntGroups: []
+      huntGroups: [],
+      cuurHunts:[],//显示数字
+      cuurHunts2:[],//真实数字
+      totalHunts:[],
+      huntKey:0,//已用寻宝钥匙数量
     }
   },
   watch: {
@@ -277,23 +290,137 @@ export default {
     }
   },
   methods: {
+    refreshStatisticsHunt(){
+      this.huntKey = 0;
+      this.refreshHuntList();
+      this.refreshHunt();
+    },
+    //刷新
+    refreshHunt(){
+      this.cuurHunts = [];
+      this.huntUpdate();
+    },
+    refreshHuntList(){
+      this.huntList1 = [
+        {name:'1等',rate:1,value:0},
+        {name:'2等',rate:1,value:0},
+        {name:'3等',rate:1,value:0},
+        {name:'4等',rate:1,value:0},
+      ],
+      this.huntList2 = [
+        {name:'特别奖励',rate:1,value:0},
+        {name:'5~7等',rate:3,value:0},
+        {name:'8~10等',rate:3,value:0},
+        {name:'幸运奖励',rate:10,value:0},
+      ],
+      this.huntList3 = [
+        {name:'11~15等',rate:5,value:0},
+        {name:'16~25等',rate:10,value:0},
+        {name:'26~40等',rate:15,value:0},
+        {name:'41~60等',rate:20,value:0},
+        {name:'61~80等',rate:20,value:0},
+        {name:'81~100等',rate:20,value:0},
+      ]
+    },
+    //十连抽
+    getSeriesHunt(){
+      for(let i=0;i<10;i++){
+        this.getSingleHunt();
+      }
+    },
+    //单次抽取
+    getSingleHunt(){
+      let hunts = this.cuurHunts;
+      if(hunts.length == 10){
+        this.cuurHunts = [];
+        hunts = [];
+        this.huntUpdate();
+      }
+
+      let groups = this.huntGroups;
+      let n = this.randomNumber(1, 101,hunts);
+      
+      if(hunts.length < 10){
+        let value = '';
+        aaa:for(let i=0;i<groups.length;i++){
+          for(let j=0;j<groups[i].length;j++){
+            if(groups[i][j].id == n){
+              groups[i][j].isShow = true;
+              value = groups[i][j].value2;
+              break aaa;
+            }
+          }
+        }
+        this.cuurHunts.push(n);
+        this.huntKey++;
+        if(value==1){
+          this.huntList1[0].value++;
+        }else if(value==2){
+          this.huntList1[1].value++;
+        }else if(value==3){
+          this.huntList1[2].value++;
+        }else if(value==4){
+          this.huntList1[3].value++;
+        }else if(value>=5 && value <=7){
+          this.huntList2[1].value++;
+        }else if(value>=8 && value <=10){
+          this.huntList2[2].value++;
+        }else if(value>=11 && value <=15){
+          this.huntList3[0].value++;
+        }else if(value>=16 && value <=25){
+          this.huntList3[1].value++;
+        }else if(value>=26 && value <=40){
+          this.huntList3[2].value++;
+        }else if(value>=41 && value <=60){
+          this.huntList3[3].value++;
+        }else if(value>=61 && value <=80){
+          this.huntList3[4].value++;
+        }else if(value>=81 && value <=100){
+          this.huntList3[5].value++;
+        }
+      }
+      console.log(hunts.length,this.cuurHunts)
+    },
+    //生成不重复随机数
+    randomNumber(min,max,arr){
+      let i = Math.floor(Math.random() * (max - min)) + min;
+      for(let x=0;x<arr.length;x++){
+        if(arr[x] == i){
+          return this.randomNumber(min,max,arr);
+        }
+      }
+      return i;
+    },
     //刷新数字算法
     huntUpdate(){
       let numbers = [];
+      let numbers2 = [];
       for(let i=1;i<=100;i++){
-        numbers.push(i)
+        numbers.push(i);
+        numbers2.push(i);
       }
-      console.log("numbers",numbers)
       numbers = this.shuffle(numbers);
-      console.log("numbers",numbers)
-      
+      numbers2 = this.shuffle(numbers2);
       let result = [];
       let splitNumber = 10;
+      let id = 0;
       for(let j=0;j<numbers.length;j+=splitNumber){
-          result.push(numbers.slice(j,j+splitNumber));
+        let splitList = numbers.slice(j,j+splitNumber);
+        let splitList2 = numbers2.slice(j,j+splitNumber);
+        let list = [];
+        for(let k=0;k<splitList.length;k++){
+          id++;
+          list.push({
+            id:id,
+            isShow:false,
+            value:splitList[k],
+            value2:splitList2[k]
+          });
+        }
+        result.push(list);
       }
-      console.log("result",result)
       this.huntGroups = result;
+      console.log(this.huntGroups)
     },
     //打乱顺序
     shuffle(arr) {
@@ -423,7 +550,8 @@ export default {
   width: 110px;
 }
 .word-td{Word-break: break-all;}
-
+.vs-tabs--content{margin-top: 10px;}
+.operate-btn{margin-left: 8px!important;}
 
 .flex-1{border: 1px solid #ccc;margin: 1px;}
 </style>
