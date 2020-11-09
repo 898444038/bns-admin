@@ -241,26 +241,9 @@ export default {
         background: 'linear-gradient(270deg, #FFDCB8, #FDC689)',
         shadow: ''
       },
-      huntList1:[
-        {name:'1等',rate:1,value:0},
-        {name:'2等',rate:1,value:0},
-        {name:'3等',rate:1,value:0},
-        {name:'4等',rate:1,value:0},
-      ],
-      huntList2:[
-        {name:'特别奖励',rate:1,value:0},
-        {name:'5~7等',rate:3,value:0},
-        {name:'8~10等',rate:3,value:0},
-        {name:'幸运奖励',rate:10,value:0},
-      ],
-      huntList3:[
-        {name:'11~15等',rate:5,value:0},
-        {name:'16~25等',rate:10,value:0},
-        {name:'26~40等',rate:15,value:0},
-        {name:'41~60等',rate:20,value:0},
-        {name:'61~80等',rate:20,value:0},
-        {name:'81~100等',rate:20,value:0},
-      ],
+      huntList1:[],//统计1
+      huntList2:[],//统计2
+      huntList3:[],//统计3
       huntGroups: [],
       cuurHunts:[],//显示数字
       cuurHunts2:[],//真实数字
@@ -377,6 +360,15 @@ export default {
           this.huntList3[4].value++;
         }else if(value>=81 && value <=100){
           this.huntList3[5].value++;
+        }
+
+        let a = this.randomNumber(1, 101,[]);
+        let b = this.randomNumber(1, 101,[]);
+        if (a <= this.huntList2[0].rate) {
+          this.huntList2[0].value++;
+        }
+        if (b <= this.huntList2[3].rate) {
+          this.huntList2[3].value++;
         }
       }
       console.log(hunts.length,this.cuurHunts)
@@ -534,6 +526,7 @@ export default {
   },
   mounted() {
     this.huntUpdate();//寻宝
+    this.refreshHuntList();//寻宝
     this.getLuckList();
     this.getPrizesListWheel();//大转盘
     this.getPrizeList();//九宫格
