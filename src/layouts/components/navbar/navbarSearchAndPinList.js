@@ -12,6 +12,7 @@ export default {
       // 配置
       {title: "材料配置",          url: "/config/material",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "抽奖配置",          url: "/config/luck",                icon: "HomeIcon",           is_bookmarked: false},
+      {title: "装备配置",          url: "/config/equip",                icon: "HomeIcon",           is_bookmarked: false},
       // 任务
       {title: "任务日历",          url: "/task/calendar",                icon: "HomeIcon",           is_bookmarked: false},
       {title: "每日挑战",          url: "/task/week",                icon: "HomeIcon",           is_bookmarked: false},
