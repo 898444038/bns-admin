@@ -78,12 +78,12 @@
                 <vx-tooltip text="删除" v-show="false">
                   <vxe-button type="text" v-show="false" @click="removeItem(row)"><i class="feather icon-trash-2"></i></vxe-button>
                 </vx-tooltip>
-                <vx-tooltip text="设置抽奖项">
+                <vx-tooltip text="设置装备">
                   <vxe-button type="text" @click="settingsItem(row)"><i class="feather icon-settings"></i></vxe-button>
                 </vx-tooltip>
-                <vx-tooltip text="设置规则">
+                <!-- <vx-tooltip text="设置规则">
                   <vxe-button type="text" @click="rules = true"><i class="feather icon-tag"></i></vxe-button>
-                </vx-tooltip>
+                </vx-tooltip> -->
               </template>
             </vxe-table-column>
       </vxe-table>
@@ -96,7 +96,7 @@
         :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
         @page-change="handlePageChange">
       </vxe-pager>
-      <vue-loading v-show="loading" type="spin" color="#20a0ff"></vue-loading>
+      <vue-loading v-show="loading" type="spin" color="#20a0ff" style="z-index:222"></vue-loading>
     </vx-card>
 
     <vxe-modal v-model="showEdit" :title="selectRow ? '编辑&保存' : '新增&保存'" width="800" min-width="600" min-height="300" :loading="loading" resize destroy-on-close>
@@ -105,31 +105,28 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="settings" title="设置抽奖项" width="800">
+    <vxe-modal v-model="settings" title="设置装备" width="800">
       <template v-slot>
-        <vs-button @click="addLuckItem()"><i class="feather icon-plus"></i>新增</vs-button>
+        <vs-input-number :min="min" :max="max" :size="size" :step="step" label="段数:" v-model="count" style="width: 120px;float: left;margin-right: 20px;"/>
+        <vs-button type="relief" :size="sizeMini" @click="addEquipItem()"><i class="feather icon-plus"></i>生成</vs-button>
         <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
-          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"></div>
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">排序</div>
           <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12">名称</div>
-          <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12">权重</div>
-          <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12">备注</div>
-          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
+          <!-- <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div> -->
         </div>
         <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 380px;overflow: scroll;border: 0;">
           <SlickItem class="list-item" v-for="(item, index) in items" :index="index" :key="index">
             <div class="vx-row" style="margin: 0;">
               <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
-              <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
-              <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12"><vs-input class="inputx" placeholder="权重" v-model="item.weight" style="width: 100%;"/></div>
-              <div class="vx-col w-full md:w-3/12 lg:w-3/12 xl:w-3/12"><vs-input class="inputx" placeholder="备注" v-model="item.remark" style="width: 100%;"/></div>
-              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeLuckItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div>
+              <div class="vx-col w-full md:w-11/12 lg:w-11/12 xl:w-11/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
+              <!-- <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeLuckItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div> -->
             </div>
           </SlickItem>
         </SlickList>
         <vxe-form title-align="right" title-width="60">
           <vxe-form-item align="center" span="24">
             <template v-slot>
-              <vs-button style="width:100%" @click="submitLuckItem">提交</vs-button>
+              <vs-button type="relief" :size="sizeMini" style="width:100%" @click="submitEquipItem">提交</vs-button>
               <!-- <vxe-button type="reset">重置</vxe-button> -->
             </template>
           </vxe-form-item>
@@ -137,11 +134,11 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="rules" width="600" title="设置抽奖规则" show-footer>
+    <!-- <vxe-modal v-model="rules" width="600" title="设置抽奖规则" show-footer>
       <template v-slot>
         
       </template>
-    </vxe-modal>
+    </vxe-modal> -->
     <!-- <vue-loading type="balls" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="bars" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="beat" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
@@ -171,6 +168,10 @@ export default {
       insertUrl: '/equip/insert',
       updateUrl: '/equip/update',
       deleteUrl: '',
+      min: 1,
+      max: 24,
+      step: 1,
+      count: 15,
 
       settings: false,
       rules: false,
@@ -179,6 +180,7 @@ export default {
       showEdit: false,
       filterName: '',//搜索
       size: "medium",//medium / small / mini
+      sizeMini: "small",//large / Default / small  
       allAlign: 'left',//left居左,center居中,right居右
       queryData: {},//查询表单
       formData: {},//表单数据
@@ -201,13 +203,10 @@ export default {
       },
       formItems: [
         { field: 'name', title: '名称', span: 12, itemRender: { name: '$input', props: { placeholder: '请输入名称' } } },
-        //{ field: 'type', title: '类型', span: 12, itemRender: { name: '$input', props: { placeholder: '请输入类型' } } },
         { field: 'type', title: '类型', span: 12, itemRender: { name: '$select', options: [] } },
         { align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
       ],
-      items: [
-        {name:'',weight:'',remark:''}
-      ]
+      items: []
     }
   },
   created () {
@@ -246,6 +245,11 @@ export default {
         type: ''
       }
     },
+    getEquipItem(){
+      return {
+        name: ''
+      }
+    },
     getQueryParams(){
       let obj = new Object();
       obj.pageNo = this.tablePage.currentPage;
@@ -277,9 +281,17 @@ export default {
       return item ? item.label : ''
     },
 
-    // addLuckItem(){
-    //   this.items.push({name:'',weight:'',remark:''});
-    // },
+    addEquipItem(){
+      let count = this.count;
+      let prefixName = this.formData.name;
+      let items = [];
+      for(let i=0;i<count;i++){
+        let equipItem = this.getEquipItem();
+        equipItem.name = prefixName+(i+1);
+        items.push(equipItem);
+      }
+      this.items = items;
+    },
     // removeLuckItem(index){
     //   if(this.items.length <=1){
     //     this.$XModal.message({ message: '无法继续删除',zIndex:222222 })
@@ -287,38 +299,44 @@ export default {
     //   }
     //   this.items.splice(index,1);
     // },
-    // submitLuckItem(){
-    //   var _this = this;
-    //   _this.loading = true;
-    //   var params = {
-    //     id: this.formData.id,
-    //     items: JSON.stringify(this.items)
-    //   }
-    //   _this.$https.post("/luck/update",params).then((response) => { 
-    //     console.log("luck update response",response);
-    //     if(response.code == 1){
-    //         _this.settings = false;
-    //         _this.$vs.dialog({color: 'success',title: '成功',text: "更新成功",accept: function(){}});
-    //     }else{
-    //         _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
-    //     }
-    //     _this.loading = false;
-    //   }).catch((error) => { console.log(error) });
-    // },
+    submitEquipItem(){
+      var _this = this;
+      _this.loading = true;
+      let items = this.items;
+      if(items && items.length == 0){
+        _this.$vs.dialog({color: 'danger',title: '警告',text: '段数不能为空',accept: function(){}});
+        return;
+      }
+      for(let i=0;i<items.length;i++){
+        items[i].equipId = this.formData.id;
+        items[i].parentId = i;
+      }
+      var params = {
+        items: JSON.stringify(items)
+      }
+      _this.$https.post("/equip/item/insertList",params).then((response) => { 
+        console.log("/equip/item/insertList",response);
+        if(response.code == 1){
+            _this.settings = false;
+            _this.$vs.dialog({color: 'success',title: '成功',text: "更新成功",accept: function(){}});
+        }else{
+            _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
+        }
+        _this.loading = false;
+      }).catch((error) => { console.log(error) });
+    },
     
     
     
     
-    // settingsItem(row){
-    //   this.formData = {
-    //     id: row.id,
-    //   }
-    //   this.settings = true
-    //   this.items = JSON.parse(row.items);
-    //   if(!this.items){
-    //     this.items = []
-    //   }
-    // },
+    settingsItem(row){
+      this.formData = this.getFormData(row);
+      this.settings = true;
+      this.items = row.items;
+      if(!this.items){
+        this.items = []
+      }
+    },
 
 
     // removeItem (row) {
