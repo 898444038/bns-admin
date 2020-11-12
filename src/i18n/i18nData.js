@@ -12,6 +12,7 @@ export default {
 			ConfigMaterial: '材料配置',
 			configLuck: '抽奖配置',
 			configEquip: '装备配置',
+			configEquipRoute: '装备路径配置',
 		Task: '任务',
 			TaskCalendar: '活动日历',
 			TaskWeek: '挑战任务',

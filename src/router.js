@@ -109,6 +109,12 @@ const router = new Router({
                     component: () => import('./views/config/configEquip.vue'),
                     meta: { rule: 'editor', no_scroll: true}
                 },
+                {
+                    path: '/config/equipRoute',
+                    name: 'configEquipRoute',
+                    component: () => import('./views/config/configEquip2.vue'),
+                    meta: { rule: 'editor', no_scroll: true}
+                },
                 // =============================================================================
                 // 任务 路由
                 // =============================================================================

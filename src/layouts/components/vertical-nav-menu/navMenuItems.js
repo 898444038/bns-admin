@@ -48,6 +48,7 @@ export default [
       {url: "/config/material", name: "ConfigMaterial", slug: "configMaterial", icon: "MailIcon",i18n: "ConfigMaterial"},
       {url: "/config/luck", name: "configLuck", slug: "configLuck", icon: "MailIcon",i18n: "configLuck"},
       {url: "/config/equip", name: "configEquip", slug: "configEquip", icon: "MailIcon",i18n: "configEquip"},
+      {url: "/config/equipRoute", name: "configEquipRoute", slug: "configEquipRoute", icon: "MailIcon",i18n: "configEquipRoute"},
     ]
   },
   {
