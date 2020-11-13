@@ -2,9 +2,9 @@
 
 <template>
   <div id="app">
-    <vx-card style="height:500px">
+    <!-- <vx-card style="height:500px"> -->
     <div id="xfc"></div>
-    </vx-card>
+    <!-- </vx-card> -->
   </div>
 </template>
 
@@ -48,6 +48,12 @@ export default {
   }
 
 </script>
-<style scoped>
-.vx-card__collapsible-content{height:500px}
+<style>
+.vx-card__collapsible-content,.materials-editor,#xfc{min-height:450px}
+.vx-card__body{padding:0}
+.materials-editor{position: relative;}
+.tool-bar{    
+  /* top: -40px!important; */
+  position: relative!important;
+}
 </style>

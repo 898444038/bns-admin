@@ -81,9 +81,9 @@
                 <vx-tooltip text="设置装备">
                   <vxe-button type="text" @click="settingsItem(row)"><i class="feather icon-settings"></i></vxe-button>
                 </vx-tooltip>
-                <!-- <vx-tooltip text="设置规则">
-                  <vxe-button type="text" @click="rules = true"><i class="feather icon-tag"></i></vxe-button>
-                </vx-tooltip> -->
+                <vx-tooltip text="设置路径">
+                  <vxe-button type="text" @click="routesItem(row)"><i class="feather icon-tag"></i></vxe-button>
+                </vx-tooltip>
               </template>
             </vxe-table-column>
       </vxe-table>
@@ -134,11 +134,32 @@
       </template>
     </vxe-modal>
 
-    <!-- <vxe-modal v-model="rules" width="600" title="设置抽奖规则" show-footer>
+    <vxe-modal v-model="routes" width="600" title="设置路径" show-footer>
       <template v-slot>
-        
+        <vs-button type="relief" :size="sizeMini" @click="addEquipRouteItem()"><i class="feather icon-plus"></i>新增</vs-button>
+        <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">排序</div>
+          <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12">名称</div>
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
+        </div>
+        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 380px;overflow: scroll;border: 0;">
+          <SlickItem class="list-item" v-for="(item, index) in routeItems" :index="index" :key="index">
+            <div class="vx-row" style="margin: 0;">
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
+              <div class="vx-col w-full md:w-11/12 lg:w-11/12 xl:w-11/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeEquipRouteItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div>
+            </div>
+          </SlickItem>
+        </SlickList>
+        <vxe-form title-align="right" title-width="60">
+          <vxe-form-item align="center" span="24">
+            <template v-slot>
+              <vs-button type="relief" :size="sizeMini" style="width:100%" @click="submitEquipRouteItem">提交</vs-button>
+            </template>
+          </vxe-form-item>
+        </vxe-form>
       </template>
-    </vxe-modal> -->
+    </vxe-modal>
     <!-- <vue-loading type="balls" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="bars" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="beat" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
@@ -174,7 +195,7 @@ export default {
       count: 15,
 
       settings: false,
-      rules: false,
+      routes: false,
       loading: false,
       selectRow: null,
       showEdit: false,
@@ -206,7 +227,8 @@ export default {
         { field: 'type', title: '类型', span: 12, itemRender: { name: '$select', options: [] } },
         { align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
       ],
-      items: []
+      items: [],//装备
+      routeItems: []//路径
     }
   },
   created () {
@@ -337,8 +359,12 @@ export default {
         this.items = []
       }
     },
-
-
+    routesItem(row){
+      this.formData = this.getFormData(row);
+      this.routes = true;
+      let items = row.items;
+      console.log(items)
+    },
     // removeItem (row) {
     //   this.$XModal.confirm('您确定要删除该数据?').then(type => {
     //     if (type === 'confirm') {
