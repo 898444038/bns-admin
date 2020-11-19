@@ -112,7 +112,7 @@ const router = new Router({
                 {
                     path: '/config/equipRoute',
                     name: 'configEquipRoute',
-                    component: () => import('./views/config/configEquip2.vue'),
+                    component: () => import('./views/config/configEquipRoute.vue'),
                     meta: { rule: 'editor', no_scroll: true}
                 },
                 // =============================================================================

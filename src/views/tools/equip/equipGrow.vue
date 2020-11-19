@@ -83,7 +83,19 @@ export default {
   },
   methods: {
     resetForm(){},
-    auction(){},
+    auction(){
+      var _this = this;
+      let params = {
+        type: this.type,
+      };
+      _this.$https.post("/equip/grow/auction",params).then((response) => { 
+          if(response.code == 1){
+              console.log(response)
+          }else{
+              _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
+          }
+      }).catch((error) => { console.log("error",error) });
+    },
     getTypeList(){
         var _this = this;
         _this.$https.get("/equip/type/selectList",{}).then((response) => { 

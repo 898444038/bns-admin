@@ -81,9 +81,12 @@
                 <vx-tooltip text="设置装备">
                   <vxe-button type="text" @click="settingsItem(row)"><i class="feather icon-settings"></i></vxe-button>
                 </vx-tooltip>
-                <vx-tooltip text="设置路径">
-                  <vxe-button type="text" @click="routesItem(row)"><i class="feather icon-tag"></i></vxe-button>
+                <vx-tooltip text="设置关联">
+                  <vxe-button type="text" @click="relationsItem(row)"><i class="feather icon-link"></i></vxe-button>
                 </vx-tooltip>
+                <!-- <vx-tooltip text="设置路径">
+                  <vxe-button type="text" @click="routesItem(row)"><i class="feather icon-tag"></i></vxe-button>
+                </vx-tooltip> -->
               </template>
             </vxe-table-column>
       </vxe-table>
@@ -134,7 +137,40 @@
       </template>
     </vxe-modal>
 
-    <vxe-modal v-model="routes" width="600" title="设置路径" show-footer>
+    <vxe-modal v-model="relations" title="设置关联" width="800">
+      <template v-slot>
+        <vs-button type="relief" :size="sizeMini" @click="addEquipItem2()"><i class="feather icon-plus"></i>新增</vs-button>
+        <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">排序</div>
+          <div class="vx-col w-full md:w-5/12 lg:w-5/12 xl:w-5/12">起始段数</div>
+          <div class="vx-col w-full md:w-5/12 lg:w-5/12 xl:w-5/12">目标段数</div>
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
+        </div>
+        <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 380px;overflow: scroll;border: 0;">
+          <SlickItem class="list-item" v-for="(item, index) in items2" :index="index" :key="index">
+            <div class="vx-row" style="margin: 0;">
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
+              <div class="vx-col w-full md:w-5/12 lg:w-5/12 xl:w-5/12">
+                <v-select label="name" placeholder='请选择起始装备' v-model='item.id' :options="equipItemOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+              </div>
+              <div class="vx-col w-full md:w-5/12 lg:w-5/12 xl:w-5/12">
+                <v-select label="name" multiple :closeOnSelect="false" placeholder='请选择目标装备' v-model='item.children' :options="equipItemAllOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+              </div>
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeEquipItem2(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div>
+            </div>
+          </SlickItem>
+        </SlickList>
+        <vxe-form title-align="right" title-width="60">
+          <vxe-form-item align="center" span="24">
+            <template v-slot>
+              <vs-button type="relief" :size="sizeMini" style="width:100%" @click="submitEquipItem2">提交</vs-button>
+            </template>
+          </vxe-form-item>
+        </vxe-form>
+      </template>
+    </vxe-modal>
+
+    <!-- <vxe-modal v-model="routes" width="600" title="设置路径" show-footer>
       <template v-slot>
         <vs-button type="relief" :size="sizeMini" @click="addEquipRouteItem()"><i class="feather icon-plus"></i>新增</vs-button>
         <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
@@ -159,7 +195,7 @@
           </vxe-form-item>
         </vxe-form>
       </template>
-    </vxe-modal>
+    </vxe-modal> -->
     <!-- <vue-loading type="balls" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="bars" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
     <vue-loading type="beat" color="#d9544e" :size="{ width: '100px', height: '100px' }"></vue-loading>
@@ -189,12 +225,15 @@ export default {
       insertUrl: '/equip/insert',
       updateUrl: '/equip/update',
       deleteUrl: '',
+      itemSelectUrl: '/equip/item/selectList',
+      itemUpdateUrl: '/equip/item/updateList',
       min: 1,
       max: 24,
       step: 1,
       count: 15,
 
       settings: false,
+      relations: false,
       routes: false,
       loading: false,
       selectRow: null,
@@ -228,7 +267,10 @@ export default {
         { align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
       ],
       items: [],//装备
-      routeItems: []//路径
+      items2:[],
+      routeItems: [],//路径
+      equipItemOptions:[],//当前装备选择
+      equipItemAllOptions:[],//所有装备选择
     }
   },
   created () {
@@ -239,6 +281,7 @@ export default {
     var initData = this.getFormData();
     this.formData = initData;
     this.queryData = initData;
+    this.getEquipItemOptions();
   },
   watch: {
     
@@ -298,6 +341,30 @@ export default {
             }
         }).catch((error) => { console.log("error",error) });
     },
+    getEquipItemOptions(id){
+        var _this = this;
+        let params = {};
+        if(id){
+          params.equipId = id;
+        }
+        _this.$https.get(_this.itemSelectUrl,params).then((response) => { 
+            if(response.code == 1){
+                let result = response.data;
+                console.log(_this.itemSelectUrl,result);
+                let options = [];
+                for(let i=0;i<result.length;i++){
+                  options.push({label: result[i].name,value: result[i].id},);
+                }
+                if(id){
+                  _this.equipItemOptions = result;
+                }else{
+                  _this.equipItemAllOptions = result;
+                }
+            }else{
+                _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
+            }
+        }).catch((error) => { console.log("error",error) });
+    },
     formatterType ({ cellValue }) {
       let item = this.typeList.find(item => item.value === cellValue)
       return item ? item.label : ''
@@ -314,13 +381,12 @@ export default {
       }
       this.items = items;
     },
-    // removeLuckItem(index){
-    //   if(this.items.length <=1){
-    //     this.$XModal.message({ message: '无法继续删除',zIndex:222222 })
-    //     return;
-    //   }
-    //   this.items.splice(index,1);
-    // },
+    addEquipItem2(){
+      this.items2.push({});
+    },
+    removeEquipItem2(index){
+      this.items2.splice(index,1);
+    },
     submitEquipItem(){
       var _this = this;
       _this.loading = true;
@@ -331,7 +397,8 @@ export default {
       }
       for(let i=0;i<items.length;i++){
         items[i].equipId = this.formData.id;
-        items[i].parentId = i;
+        items[i].sort = i;
+        items[i].type = 0;
       }
       var params = {
         items: JSON.stringify(items)
@@ -345,9 +412,42 @@ export default {
             _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
         }
         _this.loading = false;
+        _this.getData();
       }).catch((error) => { console.log(error) });
     },
-    
+    submitEquipItem2(){
+      var _this = this;
+      _this.loading = true;
+      let items = this.items2;
+
+      let list = [];
+      for(let i=0;i<items.length;i++){
+        let ids = "";
+        for(let j=0;j<items[i].children.length;j++){
+          ids += items[i].children[j].id+",";
+        }
+        list.push({
+          id:items[i].id.id,
+          children:ids
+        });
+      }
+      var params = {
+        equipId: this.formData.id,
+        items: JSON.stringify(list)
+      }
+
+      _this.$https.post(_this.itemUpdateUrl,params).then((response) => { 
+        console.log(_this.itemUpdateUrl,response);
+        if(response.code == 1){
+            _this.relations = false;
+            _this.$vs.dialog({color: 'success',title: '成功',text: "设置成功",accept: function(){}});
+        }else{
+            _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
+        }
+        _this.loading = false;
+        _this.getData();
+      }).catch((error) => { console.log(error) });
+    },
     
     
     
@@ -357,6 +457,17 @@ export default {
       this.items = row.items;
       if(!this.items){
         this.items = []
+      }
+    },
+    relationsItem(row){
+      this.formData = this.getFormData(row);
+      this.relations = true;
+      this.items2 = row.relationItems;
+      this.items2 = row.relationItems;
+      console.log("items2",row.relationItems)
+      this.getEquipItemOptions(row.id);
+      if(!this.items2){
+        this.items2 = []
       }
     },
     routesItem(row){
@@ -411,6 +522,7 @@ export default {
           }
           _this.loading = false
           _this.showEdit = false
+          _this.getData();
         }).catch((error) => { _this.loading = false;console.log(error) })
       } else {
         _this.$https.post(_this.insertUrl, _this.formData).then((response) => { 
@@ -424,6 +536,7 @@ export default {
           }
           _this.loading = false
           _this.showEdit = false
+          _this.getData();
         }).catch((error) => { _this.loading = false;console.log(error) })
       }
     },
