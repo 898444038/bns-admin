@@ -110,19 +110,19 @@
 
     <vxe-modal v-model="settings" title="设置装备" width="800">
       <template v-slot>
-        <vs-input-number :min="min" :max="max" :size="size" :step="step" label="段数:" v-model="count" style="width: 120px;float: left;margin-right: 20px;"/>
-        <vs-button type="relief" :size="sizeMini" @click="addEquipItem()"><i class="feather icon-plus"></i>生成</vs-button>
+        <!-- <vs-input-number :min="min" :max="max" :size="size" :step="step" label="段数:" v-model="count" style="width: 120px;float: left;margin-right: 20px;"/> -->
+        <vs-button type="relief" :size="sizeMini" @click="addEquipItem()"><i class="feather icon-plus"></i>新增</vs-button>
         <div class="vx-row" style="padding: 5px;margin: 6px 0;background-color: #eee;">
           <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">排序</div>
-          <div class="vx-col w-full md:w-4/12 lg:w-4/12 xl:w-4/12">名称</div>
-          <!-- <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div> -->
+          <div class="vx-col w-full md:w-10/12 lg:w-10/12 xl:w-10/12">名称</div>
+          <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12">删除</div>
         </div>
         <SlickList :lockToContainerEdges="true" class="list" lockAxis="y" v-model="items" style="height: 380px;overflow: scroll;border: 0;">
           <SlickItem class="list-item" v-for="(item, index) in items" :index="index" :key="index">
             <div class="vx-row" style="margin: 0;">
               <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><i class="feather icon-move" style="font-size: 24px;line-height: 36px;cursor: move;"></i></div>
-              <div class="vx-col w-full md:w-11/12 lg:w-11/12 xl:w-11/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
-              <!-- <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeLuckItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div> -->
+              <div class="vx-col w-full md:w-10/12 lg:w-10/12 xl:w-10/12"><vs-input class="inputx" placeholder="名称" v-model="item.name" style="width: 100%;"/></div>
+              <div class="vx-col w-full md:w-1/12 lg:w-1/12 xl:w-1/12"><vs-button type="falt" @click="removeEquipItem(index)" style="border: 0;padding:0;"><i class="feather icon-trash-2" style="font-size: 24px;line-height: 36px;cursor:pointer;color: #333;"></i></vs-button></div>
             </div>
           </SlickItem>
         </SlickList>
@@ -371,18 +371,49 @@ export default {
     },
 
     addEquipItem(){
-      let count = this.count;
+      //let count = this.count;
       let prefixName = this.formData.name;
-      let items = [];
-      for(let i=0;i<count;i++){
-        let equipItem = this.getEquipItem();
-        equipItem.name = prefixName+(i+1);
-        items.push(equipItem);
+      // let items = [];
+      // for(let i=0;i<count;i++){
+      //   let equipItem = this.getEquipItem();
+      //   equipItem.name = prefixName+(i+1);
+      //   items.push(equipItem);
+      // }
+      // for(let i=0;i<items.length;i++){
+      //   items[i].equipId = this.formData.id;
+      //   items[i].sort = i;
+      //   items[i].type = 0;
+      // }
+      // this.items = items;
+      let sort = 0;
+      let parentId = 0;
+      if(this.items.length != 0){
+        sort = this.items[this.items.length-1].sort+1;
+        parentId = this.items[this.items.length-1].id;
       }
-      this.items = items;
+      this.items.push({
+        name: prefixName+(sort+1),
+        equipId: this.formData.id,
+        parentId: parentId,
+        sort: sort,
+        type: 0,
+      });
     },
     addEquipItem2(){
       this.items2.push({});
+    },
+    removeEquipItem(index){
+      let items = JSON.parse(JSON.stringify(this.items));
+      let item = items.splice(index,1);
+      var _this = this;
+      let params = {
+        equipId: item[0].equipId,
+        sort: item[0].sort
+      }
+      _this.$https.post("/equip/item/deleteItem",params).then((response) => { 
+        console.log("/equip/item/insertList response",response);
+        _this.getData();
+      }).catch((error) => { console.log(error) });
     },
     removeEquipItem2(index){
       this.items2.splice(index,1);
@@ -398,9 +429,11 @@ export default {
       for(let i=0;i<items.length;i++){
         items[i].equipId = this.formData.id;
         items[i].sort = i;
-        items[i].type = 0;
+        items[i].type = this.formData.type;
       }
       var params = {
+        equipId: this.formData.id,
+        type: this.formData.type,
         items: JSON.stringify(items)
       }
       _this.$https.post("/equip/item/insertList",params).then((response) => { 
@@ -433,6 +466,7 @@ export default {
       }
       var params = {
         equipId: this.formData.id,
+        type: this.formData.type,
         items: JSON.stringify(list)
       }
 
@@ -453,22 +487,22 @@ export default {
     
     settingsItem(row){
       this.formData = this.getFormData(row);
+      this.formData.items =  row.items;
       this.settings = true;
       this.items = row.items;
-      if(!this.items){
-        this.items = []
-      }
+      // if(!this.items){
+      //   this.items = []
+      // }
     },
     relationsItem(row){
       this.formData = this.getFormData(row);
       this.relations = true;
       this.items2 = row.relationItems;
-      this.items2 = row.relationItems;
       console.log("items2",row.relationItems)
       this.getEquipItemOptions(row.id);
-      if(!this.items2){
-        this.items2 = []
-      }
+      // if(!this.items2){
+      //   this.items2 = []
+      // }
     },
     routesItem(row){
       this.formData = this.getFormData(row);
@@ -492,6 +526,12 @@ export default {
         if(response.code == 1){
           _this.tableData = response.data.data;
           _this.tablePage.totalResult = response.data.totalPage;
+          for(let i=0;i<_this.tableData.length;i++){
+          if(_this.tableData[i].id == _this.formData.id){
+            _this.items = _this.tableData[i].items;
+            break;
+          }
+        }
         }else{
             _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){}});
         }

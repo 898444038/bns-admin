@@ -76,6 +76,11 @@ export default {
     type(newObject, oldObject){
         console.log(newObject,oldObject)
         //newObject.id,newObject.name,newObject.code
+        this.startOptions = [];
+        this.start = '';
+        this.endOptions = [];
+        this.end = '';
+        this.getItemList();
     }
   },
   computed: {
@@ -86,8 +91,11 @@ export default {
     auction(){
       var _this = this;
       let params = {
-        type: this.type,
+        type: this.type.code,
+        startId: this.start.id,
+        endId: this.end.id
       };
+      console.log("/equip/grow/auction params",params)
       _this.$https.post("/equip/grow/auction",params).then((response) => { 
           if(response.code == 1){
               console.log(response)
@@ -106,6 +114,21 @@ export default {
                 _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
             }
         }).catch((error) => { console.log("error",error) });
+    },
+    getItemList(){
+      var _this = this;
+      let params = {
+        type: this.type.code,
+      };
+      _this.$https.post("/equip/grow/options",params).then((response) => { 
+          if(response.code == 1){
+              console.log(response)
+              _this.startOptions = response.data;
+              _this.endOptions = response.data;
+          }else{
+              _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
+          }
+      }).catch((error) => { console.log("error",error) });
     }
   },
   mounted() {
