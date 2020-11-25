@@ -45,8 +45,18 @@
                         </div>
                     </div>
                 </div>
-                <vs-divider color="primary"> 价格 </vs-divider>
-                <vs-divider color="primary"> 路线 </vs-divider>
+                <vs-divider color="primary"> 材料价格 </vs-divider>
+                <div class="flex flex-wrap justify-between items-center">
+                  <div class="vx-row" style="margin: 20px 0 0 0;width: 100%;">
+                    <vs-input v-for="(item,index) in materials" :key="index" :label-placeholder="item.name+' 单价'" v-model="item.value" style="margin: 5px;"/>
+                  </div>
+                </div>
+                <div v-for="(item,index) in routes" :key="index" class="vx-row" style="margin: 20px 0 0 0;width: 100%;">
+                  <vs-divider color="primary"> 成长路线{{index+1}} </vs-divider>
+                  <span v-for="(list,index2) in routes[index].list" :key="index2"> -> {{list.name}}</span>
+                  <div class="vx-row" style="width: 100%;margin: 0;">1段-2段</div>
+                  <div class="vx-row" style="width: 100%;margin: 0;">2段-3段</div>
+                </div>
             </vs-tab>
         </vs-tabs>
     </vx-card>
@@ -70,6 +80,8 @@ export default {
       start:'',
       endOptions:[],
       end:'',
+      materials:[],
+      routes:[]
     }
   },
   watch: {
@@ -95,10 +107,17 @@ export default {
         startId: this.start.id,
         endId: this.end.id
       };
-      console.log("/equip/grow/auction params",params)
+      //console.log("/equip/grow/auction params",params)
       _this.$https.post("/equip/grow/auction",params).then((response) => { 
           if(response.code == 1){
-              console.log(response)
+              console.log(response.data)
+              let materialsMap = response.data.materials;
+              let materials = [];
+              for (var obj in materialsMap) {
+                materials.push({id: obj,name: materialsMap[obj]})
+              }
+              _this.materials = materials;
+              _this.routes = response.data.routes;
           }else{
               _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
           }
@@ -108,7 +127,7 @@ export default {
         var _this = this;
         _this.$https.get("/equip/type/selectList",{}).then((response) => { 
             if(response.code == 1){
-                console.log(response)
+                //console.log(response)
                 _this.typeOptions = response.data;
             }else{
                 _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
@@ -122,7 +141,7 @@ export default {
       };
       _this.$https.post("/equip/grow/options",params).then((response) => { 
           if(response.code == 1){
-              console.log(response)
+              //console.log(response)
               _this.startOptions = response.data;
               _this.endOptions = response.data;
           }else{
