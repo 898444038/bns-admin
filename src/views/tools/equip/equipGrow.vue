@@ -47,52 +47,30 @@
                 </div>
                 <vs-divider color="primary"> 材料价格 </vs-divider>
                 <div class="flex flex-wrap justify-between items-center">
-                  <div class="vx-row" style="margin: 20px 0 0 0;width: 100%;">
-                    <vs-input v-for="(item,index) in materials" :key="index" :label-placeholder="item.name+' 单价'" v-model="item.value" style="margin: 5px;"/>
+                  <div class="vx-row" style="margin: 0;width: 100%;">
+                    <vs-input v-for="(item,index) in materials" :key="index" :label-placeholder="item.name+' 单价'" v-model="item.value" @change="updateFooterEvent"/>
                   </div>
                 </div>
                 <div v-for="(item,index) in routes" :key="index" class="vx-row" style="margin: 20px 0 0 0;width: 100%;">
                   <vs-divider color="primary"> 成长路线{{index+1}} </vs-divider>
-                  <span v-for="(list,index2) in routes[index].list" :key="index2"> -> {{list.name}}</span>
-                  <vxe-table style="width:100%;" class="mytable-footer"
+                  <span v-for="(list,index2) in item.list" :key="index2"> <i class="feather icon-chevrons-right"></i> {{list.name}}</span>
+                  <vxe-table style="width:100%;margin-top: 8px;" class="mytable-footer"
+                    :ref="'xTable'+index"
                     border
                     resizable
-                    height="300"
+                    align="center"
                     highlight-hover-row
                     :show-footer="showFooter"
                     :footer-method="footerMethod"
-                    :footer-cell-class-name="footerCellClassName3"
-                    :data="tableData">
-                    <vxe-table-column type="seq" width="60" fixed="left"></vxe-table-column>
-                    <vxe-table-column v-for="(item,index) in 10" :key="index" field="name" title="Name" min-width="600" sortable></vxe-table-column>
-                    <vxe-table-column field="age" title="Age" min-width="600"></vxe-table-column>
-                    <vxe-table-column field="date" title="Date" min-width="600"></vxe-table-column>
-                    <vxe-table-column field="rate" title="Rate" width="200" fixed="right"></vxe-table-column>
+                    :data="item.data">
+                    <vxe-table-column type="seq" width="50" fixed="left"></vxe-table-column>
+                    <vxe-table-column v-for="(t,j) in item.title" :key="j" :field="t.field" :title="t.title"></vxe-table-column>
+                    <vxe-table-column title="总价" fixed="right">
+                      <template v-slot="{ row }">
+                        <span>{{ countAmount(row) }} 金</span>
+                      </template>
+                    </vxe-table-column>
                   </vxe-table>
-                  <!-- <table>
-                    <thead>
-                      <tr>
-                        <th>支付</th>
-                        <th>日期</th>
-                        <th>金额</th>
-                        <th>周期</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td data-label="支付">支付 #1</td>
-                        <td data-label="日期">02/01/2015</td>
-                        <td data-label="金额">￥2,311</td>
-                        <td data-label="周期">01/01/2015 - 01/31/2015</td>
-                      </tr>
-                      <tr>
-                        <td data-label="支付">支付 #2</td>
-                        <td data-label="日期">03/01/2015</td>
-                        <td data-label="金额">￥3,211</td>
-                        <td data-label="周期">02/01/2015 - 02/28/2015</td>
-                      </tr>
-                    </tbody>
-                  </table> -->
                 </div>
             </vs-tab>
         </vs-tabs>
@@ -121,23 +99,13 @@ export default {
       end:'',
       materials:[],
       routes:[],
-      showFooter: true,
-      tableData: [
-        { id: 10001, name: 'Test1', role: 'Develop', sex: '0', age: 28, amount: 888, address: 'vxe-table 从入门到放弃' },
-        { id: 10002, name: 'Test2', role: 'Test', sex: '1', age: 22, amount: 666, address: 'Guangzhou' },
-        { id: 10003, name: 'Test3', role: 'PM', sex: '1', age: 32, amount: 89, address: 'Shanghai' },
-        { id: 10004, name: 'Test4', role: 'Designer', sex: '0', age: 23, amount: 1000, address: 'vxe-table 从入门到放弃' },
-        { id: 10005, name: 'Test5', role: 'Develop', sex: '0', age: 30, amount: 999, address: 'Shanghai' },
-        { id: 10006, name: 'Test6', role: 'Designer', sex: '0', age: 21, amount: 998, address: 'vxe-table 从入门到放弃' },
-        { id: 10007, name: 'Test7', role: 'Test', sex: '1', age: 29, amount: 2000, address: 'vxe-table 从入门到放弃' },
-        { id: 10008, name: 'Test8', role: 'Develop', sex: '1 ', age: 35, amount: 999, address: 'vxe-table 从入门到放弃' }
-      ]
+      titles:[],
+      showFooter: true
     }
   },
   watch: {
+    // eslint-disable-next-line no-unused-vars
     type(newObject, oldObject){
-        console.log(newObject,oldObject)
-        //newObject.id,newObject.name,newObject.code
         this.startOptions = [];
         this.start = '';
         this.endOptions = [];
@@ -149,7 +117,14 @@ export default {
     
   },
   methods: {
-    resetForm(){},
+    resetForm(){
+      this.type = '';
+      this.start = '';
+      this.end = '';
+      this.materials = [];
+      this.routes = [];
+      this.titles = [];
+    },
     auction(){
       var _this = this;
       let params = {
@@ -160,14 +135,10 @@ export default {
       //console.log("/equip/grow/auction params",params)
       _this.$https.post("/equip/grow/auction",params).then((response) => { 
           if(response.code == 1){
-              console.log(response.data)
-              let materialsMap = response.data.materials;
-              let materials = [];
-              for (var obj in materialsMap) {
-                materials.push({id: obj,name: materialsMap[obj]})
-              }
-              _this.materials = materials;
+              //console.log("/equip/grow/auction",response.data)
+              _this.materials = response.data.materials;
               _this.routes = response.data.routes;
+              _this.titles = response.data.titles;
           }else{
               _this.$vs.dialog({color: 'danger',title: '警告',text: response.msg,accept: function(){} });
           }
@@ -199,49 +170,72 @@ export default {
           }
       }).catch((error) => { console.log("error",error) });
     },
-    footerCellClassName3 ({ $rowIndex, column }) {
-      if (column.type === 'seq') {
-        if ($rowIndex === 0) {
-          return 'col-blue'
-        } else {
-          return 'col-red'
+    countAmount (row) {
+      let list = this.materials;
+      let total = 0;
+      for(let i=0;i<list.length;i++){
+        let count = 0;
+        for (let key of Object.keys(row)) {
+          if(key == list[i].id){
+            count = row[key];
+          }
         }
-      } else if (column.property === 'age') {
-        if ($rowIndex === 1) {
-          return 'col-red'
-        }
+        total += XEUtils.multiply(list[i].value, count)
       }
+      return total;
+    },
+    countAllAmount (data) {
+      return XEUtils.sum(data.map(row => this.countAmount(row)))
+    },
+    // 在值发生改变时更新表尾合计
+    updateFooterEvent () {
+      // console.log("this.$refs",this.$refs)
+      // console.log("this.$refs.xTable0",this.$refs.xTable0)
+      // for (let key of Object.keys(this.$refs)) {
+      //   console.log("this.$refs[key]",this.$refs[key])
+      //   this.$refs[key].updateFooter();
+      // }
+      // let xTable = this.$refs.xTable0;
+      // xTable.updateFooter();
+      let routes = JSON.parse(JSON.stringify(this.routes));
+      this.routes = [];
+      this.routes = routes;
     },
     footerMethod ({ columns, data }) {
       const means = []
       const sums = []
-      const others = []
       columns.forEach((column, columnIndex) => {
         if (columnIndex === 0) {
-          means.push('平均')
-          sums.push('和值')
-          others.push('其他')
-        } else {
-          let meanCell = null
-          let sumCell = null
-          let otherCell = '-'
-          switch (column.property) {
-            case 'age':
-            case 'amount':
-              meanCell = parseInt(XEUtils.mean(data, column.property))
-              sumCell = XEUtils.sum(data, column.property)
-              break
-            case 'sex':
-              otherCell = '无'
-              break
+          means.push('总量');
+          sums.push('总计');
+        } else if (columnIndex === (this.materials.length + 3)) {
+          sums.push("共 "+this.countAllAmount(data)+" 金");
+        }else {
+          let meanCell = null;
+          let sumCell = null;
+          let list = this.materials;
+          for(let i=0;i<list.length;i++){
+            if(column.property == list[i].id){
+              let count = XEUtils.sum(data, column.property);
+              meanCell = count;
+              let total = XEUtils.multiply(list[i].value, count);
+              sumCell = total;
+            }
           }
-          means.push(meanCell)
-          sums.push(sumCell)
-          others.push(otherCell)
+          if(meanCell){
+            means.push(meanCell+" 个")
+          }else{
+            means.push(meanCell)
+          }
+          if(sumCell){
+            sums.push(sumCell+" 金")
+          }else{
+            sums.push(sumCell)
+          }
         }
       })
       // 返回一个二维数组的表尾合计
-      return [means, sums, others]
+      return [means, sums]
     }
   },
   mounted() {
@@ -275,66 +269,13 @@ export default {
   color: #fff;
 }
 
+.vxe-table .vxe-cell{word-break: keep-all!important;white-space:nowrap!important;}
+.vs-con-input-label.is-label-placeholder {
+    margin-top: 30px!important;
+    margin-right: 5px!important;
+}
+</style>
 
-
-table {
-    border: 1px solid #ccc;
-    width: 100%;
-    margin:0;
-    padding:0;
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin: 0 auto;
-  }
-
-  table tr {
-    border: 1px solid #ddd;
-    padding: 5px;
-  }
-
-  table th, table td {
-    padding: 10px;
-    text-align: center;
-  }
-
-  table th {
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-
-  @media screen and (max-width: 600px) {
-
-    table {
-      border: 0;
-    }
-
-    table thead {
-      display: none;
-    }
-
-    table tr {
-      margin-bottom: 10px;
-      display: block;
-      border-bottom: 2px solid #ddd;
-    }
-
-    table td {
-      display: block;
-      text-align: right;
-      font-size: 13px;
-      border-bottom: 1px dotted #ccc;
-    }
-
-    table td:last-child {
-      border-bottom: 0;
-    }
-
-    table td:before {
-      content: attr(data-label);
-      float: left;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-  }
+<style>
+.vxe-table .vxe-cell{word-break: keep-all!important;white-space:nowrap!important;}
 </style>
